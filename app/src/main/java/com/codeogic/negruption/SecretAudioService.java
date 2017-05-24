@@ -26,7 +26,7 @@ public class SecretAudioService extends Service implements SensorEventListener {
     float last_x=0;
     float last_y=0;
     float last_z=0;
-    static int SHAKE_THRESHOLD = 800;
+    static int SHAKE_THRESHOLD = 1000;
     long lastUpdate=0;
     Boolean flag= false;
 
@@ -127,12 +127,10 @@ public class SecretAudioService extends Service implements SensorEventListener {
     }
 
     void stopRecording(){
-        if (null != recorder) {
-
+        if (recorder!=null) {
             recorder.stop();
             recorder.reset();
             recorder.release();
-
             recorder = null;
             Toast.makeText(getApplicationContext(), "Recording Stopped", Toast.LENGTH_LONG).show();
             Log.i("recordStop", "stop");

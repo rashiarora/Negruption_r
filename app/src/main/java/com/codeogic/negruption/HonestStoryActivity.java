@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -245,6 +246,8 @@ public class HonestStoryActivity extends AppCompatActivity implements View.OnCli
                         progressDialog.dismiss();
 
                         Toast.makeText(getApplication(), "Story Uploaded Success"  + message , Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(HonestStoryActivity.this,HomeActivity.class);
+                        startActivity(intent);
 
                     }else {
                         progressDialog.dismiss();
@@ -279,6 +282,8 @@ public class HonestStoryActivity extends AppCompatActivity implements View.OnCli
                 map.put("category","Honest");
                 map.put("honest_privacy",privacy);
                 map.put("honest_userId",String.valueOf(userId));
+
+                Log.i("HonestStories",storyBean.toString());
 
 
 

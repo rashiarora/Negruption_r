@@ -49,7 +49,7 @@ public class HonestStoryAdapter extends ArrayAdapter<StoryBean> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = null;
         LayoutInflater inflater = LayoutInflater.from(context);
         view = inflater.inflate(resource,parent,false);
@@ -72,6 +72,8 @@ public class HonestStoryAdapter extends ArrayAdapter<StoryBean> {
             @Override
             public void onClick(View v) {
                 if (v.getId() == R.id.textViewReadMore_honest) {
+
+                    StoryBean storyBean = honestStoryList.get(position);
                     views = story.getViews();
                     Log.i("sid",story.getStoryId()+"");
                     Log.i("views",views+"");
@@ -81,7 +83,7 @@ public class HonestStoryAdapter extends ArrayAdapter<StoryBean> {
                     notifyDataSetChanged();
                     Log.i("newView",newView+"");
                     Intent intent = new Intent(getContext(), DetailedHonestActivity.class);
-                    intent.putExtra("keyHonestStory", story);
+                    intent.putExtra("keyHonestStory", storyBean);
                     getContext().startActivity(intent);
                     Htask h = new Htask();
                     h.execute();

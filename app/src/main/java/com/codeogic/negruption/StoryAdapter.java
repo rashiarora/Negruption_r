@@ -51,7 +51,7 @@ public class StoryAdapter extends ArrayAdapter<StoryBean> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = null;
         LayoutInflater inflater = LayoutInflater.from(context);
         view = inflater.inflate(resource,parent,false);
@@ -66,6 +66,8 @@ public class StoryAdapter extends ArrayAdapter<StoryBean> {
         TextView txtReadMore = (TextView)view.findViewById(R.id.textViewReadMore);
 
         story = storyList.get(position);
+
+        Log.i("Story",story.toString());
         txtName.setText(story.getUsername());
         txtTitle.setText(story.getStoryTitle());
         txtDescription.setText(story.getStoryDesc());
@@ -74,14 +76,14 @@ public class StoryAdapter extends ArrayAdapter<StoryBean> {
             @Override
             public void onClick(View v) {
                 if(v.getId() == R.id.textViewReadMore){
+                    StoryBean storyBean = storyList.get(position);
+                    Log.i("RStory",story.toString());
                     Toast.makeText(getContext(),"Read More",Toast.LENGTH_LONG).show();
                     views = story.getViews();
                     newView = views+1;
-                    //story.setViews(newView);
-                    notifyDataSetChanged();
-                    Intent intent = new Intent(getContext(),StoryActivity.class);
-                    intent.putExtra("keyStory",story);
-                    getContext().startActivity(intent);
+                    Intent intent = new Intent(context,StoryActivity.class);
+                    intent.putExtra("keyStory",storyBean);
+                    context.startActivity(intent);
                     Task t = new Task();
                     t.execute();
                 }

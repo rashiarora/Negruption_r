@@ -19,11 +19,12 @@ public class StoryBean implements Serializable {
     int views;
     String username;
     String privacy;
+    String category;
 
     public StoryBean() {
     }
 
-    public StoryBean(int userId, int storyId, String storyTitle, String department, String place, String storyDesc, String imageProof, String audioProof, String videoProof, String username,int views) {
+    public StoryBean(int userId, int storyId, String storyTitle, String department, String place, String storyDesc, String imageProof, String audioProof, String videoProof, String username,int views, String category) {
         UserId = userId;
         this.storyId = storyId;
         this.storyTitle = storyTitle;
@@ -35,6 +36,7 @@ public class StoryBean implements Serializable {
         this.videoProof = videoProof;
         this.username = username;
         this.views = views;
+        this.category = category;
     }
 
     public int getUserId() {
@@ -133,6 +135,14 @@ public class StoryBean implements Serializable {
         this.privacy = privacy;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "StoryBean{" +
@@ -148,6 +158,7 @@ public class StoryBean implements Serializable {
                 ", views=" + views +
                 ", username='" + username + '\'' +
                 ", privacy='" + privacy + '\'' +
+                ", category='" + category + '\'' +
                 '}';
     }
 }

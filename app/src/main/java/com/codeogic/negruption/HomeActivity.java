@@ -36,7 +36,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,AdapterView.OnItemClickListener{
+        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,AdapterView.OnItemClickListener{
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -192,7 +192,7 @@ public class HomeActivity extends AppCompatActivity
 
 
                         if(cat.equals("Corrupt")){
-                            stories.add(new StoryBean(0,sid,title,dep,pl,description,img,aud,vid,u,views));
+                            stories.add(new StoryBean(0,sid,title,dep,pl,description,img,aud,vid,u,views,null));
                         }
 
                     }
@@ -237,5 +237,9 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }
 

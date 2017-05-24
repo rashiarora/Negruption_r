@@ -51,7 +51,7 @@ public class YourStoriesAdapter extends ArrayAdapter<StoryBean> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = null;
         LayoutInflater inflater = LayoutInflater.from(context);
         view = inflater.inflate(resource,parent,false);
@@ -75,13 +75,26 @@ public class YourStoriesAdapter extends ArrayAdapter<StoryBean> {
             public void onClick(View v) {
                 if(v.getId() == R.id.textViewyReadMore){
                     Toast.makeText(getContext(),"Read More",Toast.LENGTH_LONG).show();
+                    StoryBean storyBean = storyList.get(position);
                     views = story.getViews();
                     newView = views+1;
                     //story.setViews(newView);
                     notifyDataSetChanged();
-                    Intent intent = new Intent(getContext(),StoryActivity.class);
-                    intent.putExtra("keyStory",story);
-                    getContext().startActivity(intent);
+
+
+
+                    if (storyBean.getCategory().equals("Corrupt")){
+                        Intent intent = new Intent(getContext(),StoryActivity.class);
+                        intent.putExtra("keyStory",storyBean);
+                        getContext().startActivity(intent);
+                    }
+                    else if (storyBean.getCategory().equals("Honest")) {
+                        Intent intent = new Intent(getContext(), DetailedHonestActivity.class);
+                        intent.putExtra("keyHonestStory",storyBean);
+                        getContext().startActivity(intent);
+                    }
+
+
                     YourStoriesAdapter.Task t = new YourStoriesAdapter.Task();
                     t.execute();
                 }

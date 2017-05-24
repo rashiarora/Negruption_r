@@ -71,10 +71,10 @@ public class RetrieveHonestStory extends AppCompatActivity implements AdapterVie
                         if (category.equals("Honest")) {
 
                             if (privacy.equals("Anonymous")) {
-                                stories.add(new StoryBean(0, sid, title, null, null, description, null, null, null, u,views));
+                                stories.add(new StoryBean(0, sid, title, null, null, description, null, null, null, u,views,null));
                             } else {
                                 Log.i("name", username);
-                                stories.add(new StoryBean(0, sid, title, null, null, description, null, null, null, username,views));
+                                stories.add(new StoryBean(0, sid, title, null, null, description, null, null, null, username,views,null));
                             }
 
                         }

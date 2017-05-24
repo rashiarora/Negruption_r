@@ -232,9 +232,9 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
                             u = username;
 
 
-                        if(cat.equals("Corrupt")){
-                            stories.add(new StoryBean(0,sid,title,dep,pl,description,img,aud,vid,u,views));
-                        }
+
+                            stories.add(new StoryBean(0,sid,title,dep,pl,description,img,aud,vid,u,views,cat));
+
 
                     }
                     adapter = new YourStoriesAdapter(YourStoriesActivity.this,R.layout.your_stories_list,stories);

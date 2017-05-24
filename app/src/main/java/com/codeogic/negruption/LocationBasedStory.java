@@ -89,7 +89,7 @@ public class LocationBasedStory extends AppCompatActivity implements AdapterView
                         else
                             u = username;
 
-                            stories.add(new StoryBean(0,sid,title,dep,pl,description,img,aud,vid,u,views));
+                            stories.add(new StoryBean(0,sid,title,dep,pl,description,img,aud,vid,u,views,null));
 
 
                     }
