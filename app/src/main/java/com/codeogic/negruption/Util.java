@@ -31,6 +31,8 @@ public class Util {
 
     public static final String RETRIEVE_STORY = "http://codeogic.esy.es/negruption/retrieve_story.php";
 
+    public static final String RETRIEVE_STORY_LOCATION = "http://codeogic.esy.es/negruption/story_location.php";
+
     public static final String RETRIEVE_USER = "http://codeogic.esy.es/negruption/retrieve_users.php";
 
     public static final String RETRIEVE_LOCATION = "http://codeogic.esy.es/negruption/retrieve_location.php";
