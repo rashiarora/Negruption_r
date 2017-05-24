@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -46,9 +47,8 @@ public class HomeActivity extends AppCompatActivity
     StoryBean storyBean;
     RequestQueue requestQueue;
     ProgressDialog progressDialog;
-    int count=0;
-    //HashMap<String,Integer> map;
-    ArrayList<Integer> c;
+
+
 
 
     @Override
@@ -92,8 +92,7 @@ public class HomeActivity extends AppCompatActivity
 
         requestQueue = Volley.newRequestQueue(this);
         retrieveStory();
-        //map= new HashMap<>();
-        c = new ArrayList<>();
+
 
 
     }
@@ -221,7 +220,9 @@ public class HomeActivity extends AppCompatActivity
 
             }
         });
-
+        request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(request);
 
     }
@@ -230,29 +231,7 @@ public class HomeActivity extends AppCompatActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         storyBean = stories.get(position);
         Toast.makeText(HomeActivity.this,"You clicked"+storyBean.getUsername(),Toast.LENGTH_LONG).show();
-        //int c = count++;
-        count++;
-        storyBean.setViews(count);
 
-       /* try{
-            count = map.get(listStories.getI);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        map.put("Views",(count+1));
-        storyBean.setViews(c);*/
-        //int s = c.get(position)+1;
-        //count++;
-     /*try{
-         c.add(position,1);
-     }catch (Exception e){
-         e.printStackTrace();
-     }
-     int count = c.get(position);
-     storyBean.setViews(count);*/
-
-
-        // txtCount.setText(String.valueOf(count));
 
     }
 

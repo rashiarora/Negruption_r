@@ -2,6 +2,7 @@ package com.codeogic.negruption;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -34,13 +36,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
 
     LocationManager locationManager;
     ProgressDialog progressDialog;
     RequestQueue requestQueue;
+    LatLng latlng;
+    List<LatLng> ll;
+    List<Address> addresses;
 
 
     void initViews() {
@@ -95,22 +100,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         JSONObject jObj = jsonArray.getJSONObject(i);
 
                         location = jObj.getString("place");
+                        //Log.i("location",location);
                         if(Geocoder.isPresent()){
                             try {
                                 //String location = "theNameOfTheLocation";
                                 Geocoder gc = new Geocoder(getApplicationContext());
-                                List<Address> addresses= gc.getFromLocationName(location, 5); // get the found Address Objects
-
-                                List<LatLng> ll = new ArrayList<>(addresses.size());
+                                addresses= gc.getFromLocationName(location, 5); // get the found Address Objects
+                                //Log.i("address",addresses.toString());
+                                ll = new ArrayList<>(addresses.size());
                                 LatLng india = new LatLng(21.7679, 78.8718);
-                                LatLng latlng;// A list to save the coordinates if they are available
+                               // LatLng latlng;// A list to save the coordinates if they are available
                                 for(Address a : addresses){
                                     if(a.hasLatitude() && a.hasLongitude()){
                                         latlng = new LatLng(a.getLatitude(), a.getLongitude());
                                         ll.add(latlng);
+                                        //Log.i("latlng",latlng.toString());
 
-                                        mMap.addMarker(new MarkerOptions().position(latlng).title(location));
+                                        mMap.addMarker(new MarkerOptions().position(latlng).title(location).snippet(location));
                                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(india,3.89F));
+                                        mMap.setOnInfoWindowClickListener(MapsActivity.this);
 
 
                                     }
@@ -152,6 +160,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+
+        String loc = marker.getTitle();
+        Toast.makeText(this, "Info window clicked: "+loc,
+                Toast.LENGTH_LONG).show();
+        Intent intent= new Intent(MapsActivity.this,LocationBasedStory.class);
+       intent.putExtra("location",loc);
+        startActivity(intent);
 
 
+    }
 }
