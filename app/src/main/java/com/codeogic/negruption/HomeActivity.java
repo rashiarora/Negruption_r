@@ -230,7 +230,8 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         storyBean = stories.get(position);
-        Toast.makeText(HomeActivity.this,"You clicked"+storyBean.getUsername(),Toast.LENGTH_LONG).show();
+        Toast.makeText(HomeActivity.this,"You Clicked"+storyBean.getUsername(),Toast.LENGTH_LONG).show();
+        Log.i("HomeActivity","homeActivity");
 
 
     }
