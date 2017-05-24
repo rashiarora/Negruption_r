@@ -31,11 +31,17 @@ public class Util {
 
     public static final String RETRIEVE_STORY = "http://codeogic.esy.es/negruption/retrieve_story.php";
 
+
+    public static final String RETRIEVE_YOUR_STORY = "http://codeogic.esy.es/negruption/retrieve_your_stories.php";
+
+
     public static final String RETRIEVE_USER = "http://codeogic.esy.es/negruption/retrieve_users.php";
 
     public static final String RETRIEVE_LOCATION = "http://codeogic.esy.es/negruption/retrieve_location.php";
 
     public static final String DELETE_USER = "http://codeogic.esy.es/negruption/delete_user.php";
+
+    public static final String DELETE_STORY = "http://codeogic.esy.es/negruption/delete_stories.php";
 
     public static final String UPDATE_USER = "http://codeogic.esy.es/negruption/update_user.php";
 

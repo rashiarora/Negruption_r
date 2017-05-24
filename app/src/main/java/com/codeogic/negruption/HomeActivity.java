@@ -135,7 +135,9 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_questionnaire) {
 
-        } else if (id == R.id.nav_graph) {
+        } else if (id == R.id.nav_your_story) {
+            Intent i = new Intent(HomeActivity.this,YourStoriesActivity.class);
+            startActivity(i);
 
         } else if (id== R.id.nav_audio){
             Intent i=new Intent(HomeActivity.this,SecretAudioActivity.class);
