@@ -1,5 +1,6 @@
 package com.codeogic.negruption;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -45,6 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     ConnectivityManager connectivityManager;
     NetworkInfo networkInfo;
+    ProgressDialog progressDialog;
 
     public boolean validateLogin(){
 
@@ -127,7 +130,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         register.setOnClickListener(this);
         user=new User();
 
-
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);
         requestQueue= Volley.newRequestQueue(this);
 
         sharedPreferences=getSharedPreferences(Util.PREFS_NAME,MODE_PRIVATE);
@@ -202,6 +207,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     public void loginIntoCloud(){
+        progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Util.LOGIN_USER, new Response.Listener<String>() {
             @Override
@@ -227,13 +233,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-
+                progressDialog.dismiss();
                 Toast.makeText(LoginActivity.this,"Response: "+response,Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                progressDialog.dismiss();
                 Toast.makeText(LoginActivity.this,"Some Error"+error,Toast.LENGTH_LONG).show();
             }
         })
@@ -247,6 +253,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 return map;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
 
 

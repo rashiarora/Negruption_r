@@ -27,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -191,6 +192,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
     public void insertIntoCloud() {
+        final String token = FirebaseInstanceId.getInstance().getToken();
+        Log.i("TOKEN",token);
+
         String url="";
 
         if(!updateMode){
@@ -273,7 +277,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 map.put("gender1",user.getGender());
                 map.put("username1",user.getUsername());
                 map.put("password1",user.getPassword());
-
+                map.put("token",token);
 
                 return map;
 
