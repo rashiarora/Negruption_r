@@ -71,84 +71,10 @@ public class StoryAdapter extends ArrayAdapter<StoryBean> {
         txtTitle.setText(story.getStoryTitle());
         txtDescription.setText(story.getStoryDesc());
         txtViews.setText(String.valueOf(story.getViews()));
-        txtReadMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(v.getId() == R.id.textViewReadMore){
-                    StoryBean storyBean = storyList.get(position);
-                    Toast.makeText(getContext(),"Read More",Toast.LENGTH_LONG).show();
-                    views = story.getViews();
-                    newView = views+1;
-                   // story.setViews(newView);
-                    Intent intent = new Intent(context,StoryActivity.class);
-                    intent.putExtra("keyStory",storyBean);
-                    context.startActivity(intent);
-                    Task t = new Task();
-                    t.execute();
-                }
-            }
-        });
+
         return view;
     }
- class  Task extends AsyncTask{
 
-     @Override
-     protected Object doInBackground(Object[] params) {
-         StringRequest request = new StringRequest(Request.Method.POST, Util.UPDATE_VIEWS, new Response.Listener<String>() {
-             @Override
-             public void onResponse(String response) {
-                 try{
-                     JSONObject jsonObject = new JSONObject(response);
-                     int success = jsonObject.getInt("success");
-                     String message = jsonObject.getString("message");
-
-                     if(success == 1){
-
-                         //Toast.makeText(ManageAccountActivity.this,message,Toast.LENGTH_LONG).show();
-                         //Intent i = new Intent(ManageAccountActivity.this,SplashActivity.class);
-                         //startActivity(i);
-                        // finish();
-                         Log.i("success",message);
-                     }else{
-                        // Toast.makeText(ManageAccountActivity.this,message,Toast.LENGTH_LONG).show();
-                     }
-                    // progressDialog.dismiss();
-                 }catch (Exception e){
-                     e.printStackTrace();
-
-                     Log.i("exception",e.getMessage());
-                     //progressDialog.dismiss();
-                     //Toast.makeText(ManageAccountActivity.this,"Some Exception"+e,Toast.LENGTH_LONG).show();
-                 }
-
-
-             }
-         }, new Response.ErrorListener() {
-             @Override
-             public void onErrorResponse(VolleyError error) {
-                 Log.i("error",error.getMessage());
-
-             }
-         })
-         {
-             @Override
-             protected Map<String, String> getParams() throws AuthFailureError {
-
-                 Map<String,String> map = new HashMap<>();
-                 map.put("views",String.valueOf(newView));
-                 map.put("sid",String.valueOf(story.getStoryId()));
-
-                 return map;
-             }
-         };
-         requestQueue.add(request);request.setRetryPolicy(new DefaultRetryPolicy(50000,
-                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-         requestQueue.add(request);
-
-         return null;
-     }
- }
 
 }
 
