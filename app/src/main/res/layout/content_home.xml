@@ -4,21 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.codeogic.negruption.HomeActivity"
     android:id="@+id/swipeRefresh"
     tools:showIn="@layout/app_bar_home">
 
-    <ListView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.codeogic.negruption.HomeActivity"
-    android:id="@+id/listStories">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search..."
+        android:cursorVisible="false"
+        android:drawableRight="@android:drawable/ic_menu_search"
+        android:id="@+id/editTextSearch"/>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context="com.codeogic.negruption.HomeActivity"
+            android:id="@+id/listStories">
 
-</ListView>
+        </ListView>
+    </LinearLayout>
+
     </android.support.v4.widget.SwipeRefreshLayout>

@@ -38,13 +38,15 @@ public class HonestStoryAdapter extends ArrayAdapter<StoryBean> {
     Context context;
     int resource,views=0,newView=0;
     StoryBean story;
-    ArrayList<StoryBean> honestStoryList;
+    ArrayList<StoryBean> honestStoryList, tempList;
     RequestQueue requestQueue;
     public HonestStoryAdapter( Context context,  int resource, ArrayList<StoryBean> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
         honestStoryList = objects;
+        tempList = new ArrayList<>();
+        tempList.addAll(honestStoryList);
     }
 
     @NonNull
@@ -72,4 +74,22 @@ public class HonestStoryAdapter extends ArrayAdapter<StoryBean> {
         return view;
     }
 
+   /* public void filter(String str){
+
+        honestStoryList.clear();
+
+        if (str.length()==0){
+            honestStoryList.addAll(tempList);
+        }
+        else {
+            for (StoryBean s : tempList){
+                if (s.getStoryDesc().toLowerCase().contains(str.toLowerCase())||s.getDepartment().toLowerCase().contains(str.toLowerCase())){
+                    honestStoryList.add(s);
+                }
+            }
+        }
+        notifyDataSetChanged();
+
+    }
+*/
 }

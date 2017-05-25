@@ -38,7 +38,7 @@ import java.util.Map;
 public class StoryAdapter extends ArrayAdapter<StoryBean> {
     Context context;
     int resource,views=0,newView=0;
-    ArrayList<StoryBean> storyList;
+    ArrayList<StoryBean> storyList, tempList;
     RequestQueue requestQueue;
     StoryBean story;
 
@@ -47,6 +47,8 @@ public class StoryAdapter extends ArrayAdapter<StoryBean> {
         this.context = context;
         this.resource = resource;
         storyList = objects;
+        tempList = new ArrayList<>();
+        tempList.addAll(storyList);
     }
 
     @NonNull
@@ -73,6 +75,24 @@ public class StoryAdapter extends ArrayAdapter<StoryBean> {
         txtViews.setText(String.valueOf(story.getViews()));
 
         return view;
+    }
+
+    public void filter(String str){
+
+        storyList.clear();
+
+        if (str.length()==0){
+            storyList.addAll(tempList);
+        }
+        else {
+            for (StoryBean s : tempList){
+                if (s.getStoryDesc().toLowerCase().contains(str.toLowerCase())||s.getDepartment().toLowerCase().contains(str.toLowerCase())||s.getStoryTitle().toLowerCase().contains(str.toLowerCase())){
+                    storyList.add(s);
+                }
+            }
+        }
+        notifyDataSetChanged();
+
     }
 
 

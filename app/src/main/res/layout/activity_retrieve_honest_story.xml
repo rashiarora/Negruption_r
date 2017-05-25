@@ -7,10 +7,23 @@
     android:id="@+id/swipeRefreshh"
     tools:context="com.codeogic.negruption.RetrieveHonestStory">
 
+  <!--  <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search..."
+        android:drawableRight="@android:drawable/ic_menu_search"
+        android:id="@+id/editTexthSearch"/>-->
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listStories_honest">
 
 </ListView>
+  <!--  </LinearLayout>-->
     </android.support.v4.widget.SwipeRefreshLayout>

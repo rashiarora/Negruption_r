@@ -5,9 +5,12 @@ import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,16 +37,39 @@ public class RetrieveHonestStory extends AppCompatActivity implements AdapterVie
     StoryBean story;
     RequestQueue requestQueue;
     SwipeRefreshLayout swipeRefreshLayout;
+   // EditText eTxtSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrieve_honest_story);
+       // eTxtSearch = (EditText)findViewById(R.id.editTexthSearch);
         honestStories = (ListView)findViewById(R.id.listStories_honest);
         swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshh);
        /* progressDialog = new  (this);
         progressDialog.setMessage("Please Wait...");
         progressDialog.setCancelable(false);*/
+
+      /* eTxtSearch.addTextChangedListener(new TextWatcher() {
+           @Override
+           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+           }
+
+           @Override
+           public void onTextChanged(CharSequence s, int start, int before, int count) {
+               String str = s.toString();
+               if(adapter!=null){
+                   adapter.filter(str);
+               }
+
+           }
+
+           @Override
+           public void afterTextChanged(Editable s) {
+
+           }
+       });*/
 
         requestQueue = Volley.newRequestQueue(this);
 

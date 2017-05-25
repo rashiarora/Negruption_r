@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,7 +20,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,11 +46,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener{
+        implements NavigationView.OnNavigationItemSelectedListener,AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener{
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     TextView title;
+    EditText eTxtSearch;
     ListView listStories;
     ArrayList<StoryBean> stories;
     StoryAdapter adapter;
@@ -65,16 +71,54 @@ public class HomeActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
        // title=(TextView)findViewById(R.id.textViewTitle);
+        eTxtSearch = (EditText)findViewById(R.id.editTextSearch);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
         listStories = (ListView)findViewById(R.id.listStories);
-
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        listStories.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                boolean enable = false;
+
+                if(listStories != null && listStories.getChildCount() > 0){
+                    // check if the first item of the list is visible
+                    boolean firstItemVisible = listStories.getFirstVisiblePosition() == 0;
+                    // check if the top of the first item is visible
+                    boolean topOfFirstItemVisible = listStories.getChildAt(0).getTop() == 0;
+                    // enabling or disabling the refresh layout
+                    enable = firstItemVisible && topOfFirstItemVisible;
+                }
+                swipeRefreshLayout.setEnabled(enable);
+
+
+            }
+        });
+
+
+
+        eTxtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String str = charSequence.toString();
+                if(adapter!=null){
+                    adapter.filter(str);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 
@@ -266,6 +310,8 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
+
+
     class  Task extends AsyncTask {
 
         @Override
@@ -333,13 +379,10 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     @Override
     public void onRefresh() {
+        eTxtSearch.setText("");
         retrieveStory();
 
     }
