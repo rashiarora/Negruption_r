@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,13 +34,14 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class YourStoriesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class YourStoriesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener{
 
     @InjectView(R.id.listyStories)
     ListView yourList;
 
-    @InjectView(R.id.btnRefresh)
-    ImageButton btnRefresh;
+
+    @InjectView(R.id.swipeRefreshy)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -74,7 +76,7 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
 
         requestQueue = Volley.newRequestQueue(this);
        //
-         retrieveStory();
+
         c = new ArrayList<>();
 
 
@@ -93,17 +95,22 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
             }
         });
 
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+              retrieveStory();
+            }
+        });
+
 
 
     }
 
 
-    public void Refresh(View view){
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
 
-    }
 
     void deleteStory(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -194,7 +201,7 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
 
 
     void retrieveStory(){
-        progressDialog.show();
+       // progressDialog.show();
         stories = new ArrayList<>();
 
         StringRequest request = new StringRequest(Request.Method.POST, Util.RETRIEVE_YOUR_STORY, new Response.Listener<String>() {
@@ -206,7 +213,7 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("stories");
 
-                    int  sid=0,views =0;
+                    int  sid=0,views =0, status = 0;
                     String username="",title="",description="",privacy="",dep = " ",pl = " ",u = "", img = " ", aud = " ", vid = " ", cat = " ";
 
 
@@ -225,6 +232,7 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
                         vid = jObj.getString("videoProof");
                         cat = jObj.getString("category");
                         views = jObj.getInt("views");
+                        status = jObj.getInt("status");
 
                         if (privacy.equals("Anonymous"))
                             u = "Anonymous";
@@ -233,7 +241,7 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
 
 
 
-                            stories.add(new StoryBean(0,sid,title,dep,pl,description,img,aud,vid,u,views,cat));
+                            stories.add(new StoryBean(0,sid,title,dep,pl,description,img,aud,vid,u,views,cat,status));
 
 
                     }
@@ -241,12 +249,14 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
 
                     yourList.setAdapter(adapter);
                     yourList.setOnItemClickListener(YourStoriesActivity.this);
-                    progressDialog.dismiss();
+                    //progressDialog.dismiss();
+                    swipeRefreshLayout.setRefreshing(false);
 
                 }catch (Exception e){
                     e.printStackTrace();
-                    progressDialog.dismiss();
+                    //progressDialog.dismiss();
                     Toast.makeText(YourStoriesActivity.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
+                    swipeRefreshLayout.setRefreshing(false);
                 }
 
 
@@ -256,8 +266,9 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
+               // progressDialog.dismiss();
                 Toast.makeText(YourStoriesActivity.this,"Some Error"+error,Toast.LENGTH_LONG).show();
+                swipeRefreshLayout.setRefreshing(false);
 
             }
         }){
@@ -284,4 +295,9 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
 
 
 }
+
+    @Override
+    public void onRefresh() {
+        retrieveStory();
+    }
 }

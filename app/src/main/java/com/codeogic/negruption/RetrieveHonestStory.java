@@ -1,6 +1,7 @@
 package com.codeogic.negruption;
 
 import android.app.ProgressDialog;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,29 +23,40 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class RetrieveHonestStory extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class RetrieveHonestStory extends AppCompatActivity implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     ListView honestStories;
     ArrayList<StoryBean> stories;
     HonestStoryAdapter adapter;
     StoryBean storyBean;
     RequestQueue requestQueue;
-    ProgressDialog progressDialog;
+    //ProgressDialog progressDialog;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrieve_honest_story);
         honestStories = (ListView)findViewById(R.id.listStories_honest);
-        progressDialog = new ProgressDialog(this);
+        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshh);
+       /* progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(false);*/
 
         requestQueue = Volley.newRequestQueue(this);
-        retrieveHonestStory();
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                retrieveHonestStory();
+            }
+        });
+
     }
 
     void retrieveHonestStory(){
-        progressDialog.show();
+      //  progressDialog.show();
         stories = new ArrayList<>();
 
         StringRequest request = new StringRequest(Request.Method.GET, Util.RETRIEVE_STORY, new Response.Listener<String>() {
@@ -55,7 +67,7 @@ public class RetrieveHonestStory extends AppCompatActivity implements AdapterVie
                     JSONArray jsonArray = jsonObject.getJSONArray("stories");
 
                     int  sid=0,views=0;
-                    String username="",title="",description="",privacy="",u="Anonymous",category ="";
+                    String username="",title="",description="",privacy="",u="",category ="";
 
                     for(int i=0;i<jsonArray.length();i++) {
                         JSONObject jObj = jsonArray.getJSONObject(i);
@@ -68,15 +80,14 @@ public class RetrieveHonestStory extends AppCompatActivity implements AdapterVie
                         category = jObj.getString("category");
                         views = jObj.getInt("views");
 
+                        if (privacy.equals("Anonymous"))
+                            u = "Anonymous";
+                        else
+                            u = username;
+
+
                         if (category.equals("Honest")) {
-
-                            if (privacy.equals("Anonymous")) {
-                                stories.add(new StoryBean(0, sid, title, null, null, description, null, null, null, u,views,null));
-                            } else {
-                                Log.i("name", username);
-                                stories.add(new StoryBean(0, sid, title, null, null, description, null, null, null, username,views,null));
-                            }
-
+                                stories.add(new StoryBean(0, sid, title, null, null, description, null, null, null, u,views,null,0));
                         }
                     }
 
@@ -84,12 +95,14 @@ public class RetrieveHonestStory extends AppCompatActivity implements AdapterVie
 
                     honestStories.setAdapter(adapter);
                     honestStories.setOnItemClickListener(RetrieveHonestStory.this);
-                    progressDialog.dismiss();
+                  //  progressDialog.dismiss();
+                    swipeRefreshLayout.setRefreshing(false);
 
                 }catch (Exception e){
                     e.printStackTrace();
-                    progressDialog.dismiss();
+                    //progressDialog.dismiss();
                     Toast.makeText(RetrieveHonestStory.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
+                    swipeRefreshLayout.setRefreshing(false);
                 }
 
 
@@ -97,8 +110,9 @@ public class RetrieveHonestStory extends AppCompatActivity implements AdapterVie
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
                 Toast.makeText(RetrieveHonestStory.this,"Some Error"+error,Toast.LENGTH_LONG).show();
+                swipeRefreshLayout.setRefreshing(false);
 
             }
         });
@@ -115,5 +129,10 @@ public class RetrieveHonestStory extends AppCompatActivity implements AdapterVie
         Toast.makeText(RetrieveHonestStory.this,"You clicked"+storyBean.getUsername(),Toast.LENGTH_LONG).show();
         //int c = count++;
 
+    }
+
+    @Override
+    public void onRefresh() {
+        retrieveHonestStory();
     }
 }

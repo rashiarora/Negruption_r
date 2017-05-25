@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -36,7 +37,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,AdapterView.OnItemClickListener{
+        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener{
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -46,7 +47,8 @@ public class HomeActivity extends AppCompatActivity
     StoryAdapter adapter;
     StoryBean storyBean;
     RequestQueue requestQueue;
-    ProgressDialog progressDialog;
+    //ProgressDialog progressDialog;
+    SwipeRefreshLayout swipeRefreshLayout;
 
 
 
@@ -60,6 +62,8 @@ public class HomeActivity extends AppCompatActivity
 
        // title=(TextView)findViewById(R.id.textViewTitle);
         listStories = (ListView)findViewById(R.id.listStories);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -86,12 +90,22 @@ public class HomeActivity extends AppCompatActivity
 
         String username=sharedPreferences.getString(Util.PREFS_KEYUSERNAME,"");
         //title.setText("Welcome Home "+username);
-        progressDialog = new ProgressDialog(this);
+       /* progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
         progressDialog.setCancelable(false);
-
+*/
         requestQueue = Volley.newRequestQueue(this);
-        retrieveStory();
+       // retrieveStory();
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+                retrieveStory();
+            }
+        });
 
 
 
@@ -155,7 +169,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     void retrieveStory(){
-        progressDialog.show();
+        //progressDialog.show();
         stories = new ArrayList<>();
 
         StringRequest request = new StringRequest(Request.Method.GET, Util.RETRIEVE_STORY, new Response.Listener<String>() {
@@ -192,7 +206,7 @@ public class HomeActivity extends AppCompatActivity
 
 
                         if(cat.equals("Corrupt")){
-                            stories.add(new StoryBean(0,sid,title,dep,pl,description,img,aud,vid,u,views,null));
+                            stories.add(new StoryBean(0,sid,title,dep,pl,description,img,aud,vid,u,views,null,0));
                         }
 
                     }
@@ -200,12 +214,15 @@ public class HomeActivity extends AppCompatActivity
 
                     listStories.setAdapter(adapter);
                     listStories.setOnItemClickListener(HomeActivity.this);
-                    progressDialog.dismiss();
+                   // progressDialog.dismiss();
+
+                    swipeRefreshLayout.setRefreshing(false);
 
                 }catch (Exception e){
                     e.printStackTrace();
-                    progressDialog.dismiss();
+                    //progressDialog.dismiss();
                     Toast.makeText(HomeActivity.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
+                    swipeRefreshLayout.setRefreshing(false);
                 }
 
 
@@ -215,8 +232,9 @@ public class HomeActivity extends AppCompatActivity
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
+               // progressDialog.dismiss();
                 Toast.makeText(HomeActivity.this,"Some Error"+error,Toast.LENGTH_LONG).show();
+                swipeRefreshLayout.setRefreshing(false);
 
             }
         });
@@ -239,6 +257,12 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onRefresh() {
+        retrieveStory();
 
     }
 }

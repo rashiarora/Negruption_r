@@ -67,7 +67,6 @@ public class StoryAdapter extends ArrayAdapter<StoryBean> {
 
         story = storyList.get(position);
 
-        Log.i("Story",story.toString());
         txtName.setText(story.getUsername());
         txtTitle.setText(story.getStoryTitle());
         txtDescription.setText(story.getStoryDesc());
@@ -77,10 +76,10 @@ public class StoryAdapter extends ArrayAdapter<StoryBean> {
             public void onClick(View v) {
                 if(v.getId() == R.id.textViewReadMore){
                     StoryBean storyBean = storyList.get(position);
-                    Log.i("RStory",story.toString());
                     Toast.makeText(getContext(),"Read More",Toast.LENGTH_LONG).show();
                     views = story.getViews();
                     newView = views+1;
+                   // story.setViews(newView);
                     Intent intent = new Intent(context,StoryActivity.class);
                     intent.putExtra("keyStory",storyBean);
                     context.startActivity(intent);
