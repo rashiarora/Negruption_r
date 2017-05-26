@@ -1,119 +1,120 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@drawable/white1"
-    tools:context="com.codeogic.negruption.HonestStoryActivity">
+    android:padding="15dp"
+    android:background="@drawable/grad1"
+    tools:context="com.codeogic.negruption.AddStoryActivity">
 
     <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="500dp"
         android:orientation="vertical"
-
-
-        >
+        android:background="#ffffff"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="ADD HONEST STORY "
-            android:fontFamily="sans-serif-condensed"
-            android:background="@android:drawable/dialog_holo_light_frame"
-
+            android:fontFamily="sans-serif-smallcaps"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:textSize="30dp"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="#ffffff"
             />
 
 
-        <LinearLayout
-            android:layout_width="400dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/white1"
-            android:orientation="vertical"
-            >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="Share Your Experience in Detail"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="17dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimary"
+
+            />
+        <ImageView
+            android:id="@+id/imageViewHonestOfficer"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_weight="0.13"
+            android:background="@drawable/honestofficer" />
+
+        <Spinner
+            android:id="@+id/spinnerDepartment_Honest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:fontFamily="monospace"
-                android:text="Share Your Experience in Detail"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="17dp" />
-
-            <Spinner
-                android:id="@+id/spinnerDepartment_Honest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-
-
-            </Spinner>
-
-
-
-            <Spinner
-                android:id="@+id/spinnerCities_Honest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
-
-            </Spinner>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" Title Of Your Story"
-                android:layout_marginTop="10dp"
-                android:id="@+id/editTextStoryTitle_Honest"
-
-                />
-
-            <EditText
-                android:id="@+id/editTextStory_Honest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-
-                android:hint="Your Story Description Here"
-                android:inputType="textMultiLine" />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="I Want To Stay Anonymous"
-                android:textColor="@color/colorPrimaryDark"
-                android:id="@+id/chkAnym_Honest"/>
-
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/buttonUpload_Honest"
-                android:text="Upload"
-                android:background="@android:drawable/dialog_holo_light_frame"
-                android:layout_marginLeft="120dp"
-                android:layout_marginTop="20dp"
-                />
+        </Spinner>
 
 
 
-        </LinearLayout>
+        <Spinner
+            android:id="@+id/spinnerCities_Honest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+        </Spinner>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint=" Title Of Your Story"
+
+            android:id="@+id/editTextStoryTitle_Honest"
+
+            />
+
+        <EditText
+            android:id="@+id/editTextStory_Honest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Your Story Description Here"
+            android:inputType="textMultiLine" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="I Want To Stay Anonymous"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/chkAnym_Honest"/>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/buttonUpload_Honest"
+            android:text="Publish"
+            android:textColor="#ffffff"
+            android:textSize="17dp"
+             android:background="@color/colorPrimary"
+            android:layout_marginTop="20dp"
+            />
+
+
 
 
     </LinearLayout>
-</ScrollView>
 
+
+</ScrollView>
 

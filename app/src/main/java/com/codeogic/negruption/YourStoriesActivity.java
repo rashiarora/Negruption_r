@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -60,6 +61,7 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
         setContentView(R.layout.activity_your_stories);
 
         ButterKnife.inject(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         sharedPreferences = getSharedPreferences(Util.PREFS_NAME,MODE_PRIVATE);
 
@@ -107,6 +109,18 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
 
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 

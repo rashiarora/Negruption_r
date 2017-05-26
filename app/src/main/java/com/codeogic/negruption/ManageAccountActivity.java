@@ -9,9 +9,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ManageAccountActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class ManageAccountActivity extends AppCompatActivity implements AdapterView.OnItemClickListener ,View.OnClickListener{
     ListView listView;
     ArrayList<String> accountList;
     ArrayAdapter<String> adapter;
@@ -44,23 +46,42 @@ public class ManageAccountActivity extends AppCompatActivity implements AdapterV
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    Button buttonUpdate,buttonDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_account);
         initViews();
+        buttonUpdate.setOnClickListener(this);
+        buttonDelete.setOnClickListener(this);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     void initViews(){
-        listView= (ListView)findViewById(R.id.listView_account);
+      /*  listView= (ListView)findViewById(R.id.listView_account);
         accountList = new ArrayList<>();
         accountList.add("Update Your Account Details");
         accountList.add("Delete Your Account");
 
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,accountList);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
+        listView.setOnItemClickListener(this);*/
+
+      buttonUpdate=(Button)findViewById(R.id.buttonUpdateAccount) ;
+        buttonDelete=(Button)findViewById(R.id.buttonDeleteAccount);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
@@ -102,13 +123,18 @@ public class ManageAccountActivity extends AppCompatActivity implements AdapterV
     void deleteUser(){
         //User user = new User();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Delete ");
-        builder.setMessage("Do you wish to Delete?");
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setTitle("Negruption Account Deletion ");
+        builder.setMessage("Do you wish to Delete Your Account ?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 deleteFromCloud();
+                AlertDialog.Builder builder = new AlertDialog.Builder(ManageAccountActivity.this);
+                builder.setMessage(" Account Successfully Deleted ");
+               builder.create().show();
+                builder.create().dismiss();
+
 
             }
         });
@@ -234,6 +260,17 @@ public class ManageAccountActivity extends AppCompatActivity implements AdapterV
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        int id = v.getId();
+        if (id==R.id.buttonUpdateAccount)
+            retrieveUser();
+        else
+            deleteUser();
+
     }
 
     /* class UserTask extends AsyncTask{

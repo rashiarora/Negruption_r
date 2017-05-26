@@ -4,18 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
     android:gravity="bottom"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
     android:padding="5dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-
-
-
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/chain"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/loginlogo2"
+        android:layout_gravity="center"
+        android:layout_marginTop="14dp"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't Give Don't Take"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        />
+
+
 </LinearLayout>

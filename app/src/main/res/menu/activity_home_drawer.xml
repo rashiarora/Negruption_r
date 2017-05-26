@@ -19,7 +19,7 @@
         <item
             android:id="@+id/nav_questionnaire"
             android:icon="@drawable/questions"
-            android:title="Questionnaire" />
+            android:title="HelpLines" />
 
 
         <item

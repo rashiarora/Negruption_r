@@ -5,8 +5,8 @@
 
     >
     <item
-        android:drawable="@drawable/finalsplash"
-        android:duration="2000"
+        android:drawable="@drawable/splash_nnnn"
+        android:duration="3000"
         />
 
 </animation-list>

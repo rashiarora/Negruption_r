@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -51,11 +52,7 @@ public class StoryActivity extends AppCompatActivity {
     @InjectView(R.id.btnsStop)
     Button btnStop;
 
-    @InjectView(R.id.sVideoView)
-    VideoView videoView;
 
-    @InjectView(R.id.btnVideoPlay)
-    ImageButton videoPlay;
 
 
     MediaPlayer mediaPlayer;
@@ -68,6 +65,7 @@ public class StoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_story);
 
         ButterKnife.inject(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent rcv = getIntent();
         StoryBean story = (StoryBean)rcv.getSerializableExtra("keyStory");
@@ -112,22 +110,10 @@ public class StoryActivity extends AppCompatActivity {
 
         }
 
-        if (!(story.getVideoProof().equals("null"))){
-            videoView.setVisibility(View.VISIBLE);
-            videoPlay.setVisibility(View.VISIBLE);
-            videoView.setMediaController(new MediaController(this));
-            videoView.setVideoURI(Uri.parse(story.getVideoProof()));
-            videoView.requestFocus();
-            progressDialog.dismiss();
-
-        }
-    }
-
-    public void btnVideoPlay(View view){
-        videoView.start();
-        videoPlay.setVisibility(View.GONE);
 
     }
+
+
 
 
     public void clickPlay(View view){
@@ -153,9 +139,18 @@ public class StoryActivity extends AppCompatActivity {
             mediaPlayer = null;
         }
 
-        if (videoView!=null){
-            videoView.stopPlayback();
-            videoView = null;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+            finish();
         }
+
+        return super.onOptionsItemSelected(item);
     }
 }

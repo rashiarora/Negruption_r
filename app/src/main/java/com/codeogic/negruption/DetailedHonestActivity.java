@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
@@ -36,6 +37,7 @@ public class DetailedHonestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detailed_honest);
         ButterKnife.inject(this);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent rcv = getIntent();
         StoryBean story = (StoryBean)rcv.getSerializableExtra("keyHonestStory");
 
@@ -52,5 +54,17 @@ public class DetailedHonestActivity extends AppCompatActivity {
         progressDialog.show();*/
 
         Log.i("info",story.toString());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

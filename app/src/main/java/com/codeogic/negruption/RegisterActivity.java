@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -107,12 +108,27 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         female.setOnCheckedChangeListener(this);
         register.setOnClickListener(this);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         user=new User();
         sharedPreferences=getSharedPreferences(Util.PREFS_NAME,MODE_PRIVATE);
         editor=sharedPreferences.edit();
 
 
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+            Intent i =new Intent(RegisterActivity.this,LoginActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -301,7 +317,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         female.setChecked(false);
         username.setText("");
         password.setText("");
-
+        password1.setText("");
 
     }
 
@@ -398,7 +414,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             male.setError("No Gender Selected");
             female.setError("No Gender Selected");
 
-            Toast.makeText(this,"Please Select Gender",Toast.LENGTH_LONG).show();
+            //Toast.makeText(this,"Please Select Gender",Toast.LENGTH_LONG).show();
 
 
         }

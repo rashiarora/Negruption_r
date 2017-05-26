@@ -37,9 +37,9 @@ public class SplashActivity extends AppCompatActivity {
         boolean isLoginOrRegistered = sharedPreferences.contains(Util.PREFS_KEYUSERNAME);
 
         if (isLoginOrRegistered) {
-            handler.sendEmptyMessageDelayed(100, 3000);
+            handler.sendEmptyMessageDelayed(100, 3500);
         } else {
-             handler.sendEmptyMessageDelayed(200,3000);
+             handler.sendEmptyMessageDelayed(200,3500);
         }
     }
 

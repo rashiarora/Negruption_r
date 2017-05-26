@@ -7,4 +7,24 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_maps">Corruption Locations</string>
+
+
+    <string name="switch1">When You want to record any incident secretly ,
+             If You are logged in , then turn this switch on ,followed by  shaking of your phone
+             minimum of 3 times which results in recording ,and to stop recording
+             phone should be shaken again minimum of 3 times.</string>
+
+    <string name="switch2">
+             The Recorded audio file is saved in your file manager and can be uploaded from there.
+             If you dont need to record any further , switch it off.</string>
+
+    <string name="switch3">
+             if you dont switch it off after current use, later in any case you may begin recording by just shaking
+             the phone provided you are logged in.</string>
+
+<string name="switch4">
+             It is suggested to keep the switch on only if you feel you might be a victim of some situation
+             otherwise unnecessary recording might take place .
+
+            </string>
 </resources>

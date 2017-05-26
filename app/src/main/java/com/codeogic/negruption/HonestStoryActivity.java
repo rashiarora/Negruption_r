@@ -6,13 +6,17 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +58,9 @@ public class HonestStoryActivity extends AppCompatActivity implements View.OnCli
     @InjectView(R.id.buttonUpload_Honest)
     Button btnHonestUpload;
 
+    @InjectView(R.id.imageViewHonestOfficer)
+    ImageView imageViewOfficer;
+
     StoryBean storyBean;
 
     RequestQueue requestQueue;
@@ -72,6 +79,16 @@ public class HonestStoryActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_honest_story);
         ButterKnife.inject(this);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(3500); //You can manage the time of the blink with this parameter
+        anim.setStartOffset(20);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        imageViewOfficer.startAnimation(anim);
+
         setHonestDepartment();
         setHonestCities();
         btnHonestUpload.setOnClickListener(this);
@@ -89,6 +106,18 @@ public class HonestStoryActivity extends AppCompatActivity implements View.OnCli
         editor = sharedPreferences.edit();
 
         userId = sharedPreferences.getInt(Util.PREFS_KEYUSERID,0);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void setHonestDepartment() {
@@ -209,10 +238,13 @@ public class HonestStoryActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         if(v.getId()== R.id.buttonUpload_Honest){
+
+            if (validInput()){
             storyBean.setStoryTitle(txtHonestStoryTitle.getText().toString().trim());
             storyBean.setStoryDesc(txtHonestStoryDesc.getText().toString().trim());
             uploadHonestStory();
 
+        }
         }
 
     }
@@ -293,4 +325,39 @@ public class HonestStoryActivity extends AppCompatActivity implements View.OnCli
         };
         requestQueue.add(request);;
     }
+
+
+    public boolean validInput(){
+
+        boolean flag = true;
+
+        if (txtHonestStoryDesc.getText().toString().trim().isEmpty()){
+            flag=false;
+            txtHonestStoryDesc.setError("Please Write The Story");
+
+        }
+
+        if (txtHonestStoryTitle.getText().toString().trim().isEmpty()){
+            flag=false;
+            txtHonestStoryTitle.setError("Please Fill The Title");
+
+        }
+
+        if(spinnerHonestDepartment.getSelectedItem().toString().trim().equalsIgnoreCase("--  Which Department ? --")){
+
+            flag=false;
+            Toast.makeText(this,"Please Select Department",Toast.LENGTH_LONG).show();
+        }
+
+        if (spinnerMainHonestCities.getSelectedItem().toString().trim().equalsIgnoreCase("-- Select City --")){
+
+            flag=false;
+            Toast.makeText(this,"Please Select City",Toast.LENGTH_LONG).show();
+        }
+
+        return flag;
+
+
+    }
+
 }

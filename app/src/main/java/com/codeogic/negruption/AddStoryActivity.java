@@ -9,7 +9,10 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -62,6 +65,9 @@ public class AddStoryActivity extends AppCompatActivity implements View.OnClickL
     @InjectView(R.id.buttonNext1)
     Button btnNext;
 
+    @InjectView(R.id.honest)
+    TextView textViewHonest;
+
     String stateName;
     ArrayAdapter<String> arrayAdapterCities,arrayAdapterDepartment;
 
@@ -86,6 +92,15 @@ public class AddStoryActivity extends AppCompatActivity implements View.OnClickL
 
 
         ButterKnife.inject(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(900); //You can manage the time of the blink with this parameter
+        anim.setStartOffset(20);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        textViewHonest.startAnimation(anim);
+
         setCities();
          setDepartment();
         btnNext.setOnClickListener(this);
@@ -110,6 +125,18 @@ public class AddStoryActivity extends AppCompatActivity implements View.OnClickL
 
 
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 
     @Override
@@ -118,13 +145,14 @@ public class AddStoryActivity extends AppCompatActivity implements View.OnClickL
 
 
        if (v.getId()==R.id.buttonNext1) {
-           storyBean.setStoryTitle(txtStoryTitle.getText().toString().trim());
-           storyBean.setStoryDesc(txtStoryDesc.getText().toString().trim());
+           if (validInput()) {
+               storyBean.setStoryTitle(txtStoryTitle.getText().toString().trim());
+               storyBean.setStoryDesc(txtStoryDesc.getText().toString().trim());
 
-           progressDialog.show();
+               progressDialog.show();
 
-           uploadData();
-
+               uploadData();
+           }
 
 
        }
@@ -351,4 +379,38 @@ public class AddStoryActivity extends AppCompatActivity implements View.OnClickL
         }
 
     }
+
+    public boolean validInput(){
+
+        boolean flag = true;
+
+        if (txtStoryDesc.getText().toString().trim().isEmpty()){
+            flag=false;
+            txtStoryDesc.setError("Please Write The Story");
+
+        }
+
+        if (txtStoryTitle.getText().toString().trim().isEmpty()){
+            flag=false;
+            txtStoryTitle.setError("Please Fill The Title");
+
+        }
+
+        if(spinnerDepartment.getSelectedItem().toString().trim().equalsIgnoreCase("--  Which Department ? --")){
+
+            flag=false;
+            Toast.makeText(this,"Please Select Department",Toast.LENGTH_LONG).show();
+        }
+
+        if (spinnerMainCities.getSelectedItem().toString().trim().equalsIgnoreCase("-- Select City --")){
+
+            flag=false;
+            Toast.makeText(this,"Please Select City",Toast.LENGTH_LONG).show();
+        }
+
+        return flag;
+
+
+    }
+
 }

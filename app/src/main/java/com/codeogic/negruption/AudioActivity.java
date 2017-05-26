@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,6 +62,8 @@ public class AudioActivity extends AppCompatActivity implements View.OnClickList
         btnNext = (Button)findViewById(R.id.buttonNext3) ;
         txtAudioTitle=(EditText)findViewById(R.id.editTextAudioTitle);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         play.setOnClickListener(this);
         stop.setOnClickListener(this);
         btnChoose.setOnClickListener(this);
@@ -80,6 +83,17 @@ public class AudioActivity extends AppCompatActivity implements View.OnClickList
 
 
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

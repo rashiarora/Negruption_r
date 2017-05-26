@@ -5,17 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/splash"
+    android:id="@+id/linearLayoutSplash"
     tools:context="com.codeogic.negruption.SplashActivity">
 
 
 
+
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/anim_drawable"
         android:id="@+id/imageViewSplash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@drawable/anim_drawable"
         />
 
+
+
+
+
+
 </LinearLayout>
+

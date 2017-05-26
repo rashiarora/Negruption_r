@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,26 +6,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="15dp"
-    android:background="@drawable/addstory1"
+    android:background="@drawable/grad1"
     tools:context="com.codeogic.negruption.AddStoryActivity">
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="#ffffff"
+
         >
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="ADD STORY "
-            android:fontFamily="serif-monospace"
-            android:background="@android:drawable/dialog_holo_light_frame"
-
+            android:fontFamily="sans-serif-smallcaps"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:textSize="30dp"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="#ffffff"
             />
 
 
@@ -35,17 +35,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="10dp"
-            android:fontFamily="monospace"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
             android:text="Share Your Experience in Detail"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="17dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimary"
+
+            />
 
         <Spinner
             android:id="@+id/spinnerDepartment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="20dp">
 
 
@@ -57,6 +66,8 @@
             android:id="@+id/spinnerCities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="20dp">
 
         </Spinner>
@@ -66,6 +77,8 @@
             android:layout_height="wrap_content"
             android:hint=" Title Of Your Story"
 
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:id="@+id/editTextStoryTitle"
 
             />
@@ -76,6 +89,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:ems="10"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:hint="Your Story Description Here"
             android:inputType="textMultiLine" />
 
@@ -89,13 +104,21 @@
 
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:id="@+id/buttonNext1"
             android:text="Next"
-            android:background="@android:drawable/dialog_holo_light_frame"
-            android:layout_marginLeft="120dp"
-            android:layout_marginTop="20dp"
+            android:textColor="#ffffff"
+            android:textSize="17dp"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="40dp"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"
+
             />
 
 
@@ -103,14 +126,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:textSize="16dp"
+            android:textSize="18dp"
             android:textStyle="bold"
-            android:fontFamily="monospace"
             android:textColor="@color/black"
-            android:text=" Encounter with an Honest Officer?
-            CLICK HERE"
+            android:text="Met an Honest Officer?"
+            android:gravity="center"
+            android:id="@+id/honest"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:fontFamily="serif"
+            android:textColor="@color/colorPrimaryDark"
+            android:text=" Click Here"
             android:id="@+id/textViewHonestOfficer"
-
             />
 
     </LinearLayout>

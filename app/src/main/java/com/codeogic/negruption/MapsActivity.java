@@ -2,6 +2,7 @@ package com.codeogic.negruption;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -12,6 +13,8 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -36,9 +39,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.RECORD_AUDIO;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
+    public static final int REQUEST_CODE=201;
 
     LocationManager locationManager;
     ProgressDialog progressDialog;
@@ -71,6 +81,76 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         initViews();
+
+        if (checkPermission()){
+
+            // Toast.makeText(this,"Permissions Are Already Granted",Toast.LENGTH_LONG).show();
+        }
+        else {
+            // Toast.makeText(this,"Permissions are not granted ",Toast.LENGTH_LONG).show();
+            requestPermission();
+        }
+
+
+    }
+
+    private void requestPermission() {
+
+        ActivityCompat.requestPermissions(MapsActivity.this, new String[]{ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION}, REQUEST_CODE);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE:
+                if (grantResults.length > 0) {
+
+                    boolean FineLocationPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean CoarseLocationPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+
+                    if (FineLocationPermission && CoarseLocationPermission ) {
+
+                        Toast.makeText(MapsActivity.this, "Permissions Granted", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(MapsActivity.this,"Permissions Denied",Toast.LENGTH_LONG).show();
+
+                        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+                        builder.setTitle("Permissions Required");
+                        builder.setMessage("Kindly Grant The Permissions For Proper Working of Application ");
+
+                        builder.setPositiveButton("O K A Y", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                requestPermission();
+                                Toast.makeText(MapsActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
+
+
+                            }
+                        });
+
+
+                        builder.create().show();
+
+                        // finish();
+
+
+                    }
+                }
+
+                break;
+        }
+    }
+
+    public boolean checkPermission() {
+
+        int result = ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION);
+        int result1 = ContextCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION);
+
+
+        return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED ;
     }
 
 
