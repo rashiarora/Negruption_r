@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -128,17 +129,28 @@ public class AudioActivity extends AppCompatActivity implements View.OnClickList
             if (selectedPath!=null){
             MyTask myTask = new MyTask();
             myTask.execute();
-                editor.putString(Util.PREFS_KEYAUDIO,selectedPath);
-                editor.commit();
+                /*editor.putString(Util.PREFS_KEYAUDIO,selectedPath);
+                editor.commit();*/
             }
             else {
-                Intent intent = new Intent(AudioActivity.this,VideoActivity.class);
-                intent.putExtra("rcvStory",rcvStory);
+                showAlertDialog();
+                Intent intent = new Intent(AudioActivity.this,HomeActivity.class);
                 startActivity(intent);
             }
 
 
         }
+
+    }
+
+    void showAlertDialog(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Story Submitted Successfully");
+        builder.setMessage("Your Story is under inspection. Once it has been approved by us, it will be published and notified to you");
+        builder.setCancelable(false); // If user will press the back key dialog will not be dismissed
+        builder.setPositiveButton("Ok", null);
+        builder.create().show();
 
     }
 
@@ -181,6 +193,8 @@ public class AudioActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     }
+
+
 
 
 
@@ -298,9 +312,9 @@ public class AudioActivity extends AppCompatActivity implements View.OnClickList
             super.onPostExecute(o);
              progressDialog.dismiss();
               Toast.makeText(AudioActivity.this,"Upload Finished",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(AudioActivity.this,VideoActivity.class);
+           /* Intent intent = new Intent(AudioActivity.this,VideoActivity.class);
             intent.putExtra("rcvStory",rcvStory);
-            startActivity(intent);
+            startActivity(intent);*/
         }
     }
 
