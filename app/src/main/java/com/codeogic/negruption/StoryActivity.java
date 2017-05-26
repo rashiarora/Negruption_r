@@ -51,12 +51,12 @@ public class StoryActivity extends AppCompatActivity {
     @InjectView(R.id.btnsStop)
     Button btnStop;
 
-    @InjectView(R.id.sVideoView)
+    /*@InjectView(R.id.sVideoView)
     VideoView videoView;
 
     @InjectView(R.id.btnVideoPlay)
     ImageButton videoPlay;
-
+*/
 
     MediaPlayer mediaPlayer;
 
@@ -113,12 +113,13 @@ public class StoryActivity extends AppCompatActivity {
         }
 
         if (story.getImageProof().equals("null")&&story.getAudioProof().equals("null")){
+            progressDialog.dismiss();
             imageView.setVisibility(View.GONE);
             btnPlay.setVisibility(View.GONE);
             btnPause.setVisibility(View.GONE);
             btnStop.setVisibility(View.GONE);
-            videoView.setVisibility(View.GONE);
-            videoPlay.setVisibility(View.GONE);
+            /*videoView.setVisibility(View.GONE);
+            videoPlay.setVisibility(View.GONE);*/
         }
 
        /* if (!(story.getVideoProof().equals("null"))){

@@ -3,6 +3,7 @@ package com.codeogic.negruption;
 import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -134,8 +135,6 @@ public class AudioActivity extends AppCompatActivity implements View.OnClickList
             }
             else {
                 showAlertDialog();
-                Intent intent = new Intent(AudioActivity.this,HomeActivity.class);
-                startActivity(intent);
             }
 
 
@@ -149,7 +148,14 @@ public class AudioActivity extends AppCompatActivity implements View.OnClickList
         builder.setTitle("Story Submitted Successfully");
         builder.setMessage("Your Story is under inspection. Once it has been approved by us, it will be published and notified to you");
         builder.setCancelable(false); // If user will press the back key dialog will not be dismissed
-        builder.setPositiveButton("Ok", null);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(AudioActivity.this,HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         builder.create().show();
 
     }
