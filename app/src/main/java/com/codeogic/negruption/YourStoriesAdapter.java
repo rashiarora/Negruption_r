@@ -63,6 +63,7 @@ public class YourStoriesAdapter extends ArrayAdapter<StoryBean> {
         TextView txtTitle = (TextView)view.findViewById(R.id.textViewyStoryTitle);
         TextView txtDescription = (TextView)view.findViewById(R.id.textViewyStoryDesc);
         TextView txtViews = (TextView)view.findViewById(R.id.textViewyViews);
+        TextView txtViewApproval = (TextView)view.findViewById(R.id.textViewApproval);
 
         TextView txtReadMore = (TextView)view.findViewById(R.id.textViewyReadMore);
 
@@ -72,34 +73,14 @@ public class YourStoriesAdapter extends ArrayAdapter<StoryBean> {
         txtDescription.setText(story.getStoryDesc());
         txtViews.setText(String.valueOf(story.getViews()));
         if (story.getStatus()==0){
-            txtTitle.setTextColor(Color.RED);
+            txtViewApproval.setText("Pending");
+            txtViewApproval.setTextColor(Color.RED);
         }
         else if (story.getStatus()==1){
-            txtTitle.setTextColor(Color.GREEN);
+            txtViewApproval.setText("Approved");
+            txtViewApproval.setTextColor(Color.GREEN);
         }
-        txtReadMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(v.getId() == R.id.textViewyReadMore){
-                    Toast.makeText(getContext(),"Read More",Toast.LENGTH_LONG).show();
-                    StoryBean storyBean = storyList.get(position);
-                    //story.setViews(newView);
-                    notifyDataSetChanged();
 
-                    if (storyBean.getCategory().equals("Corrupt")){
-                        Intent intent = new Intent(getContext(),StoryActivity.class);
-                        intent.putExtra("keyStory",storyBean);
-                        getContext().startActivity(intent);
-                    }
-                    else if (storyBean.getCategory().equals("Honest")) {
-                        Intent intent = new Intent(getContext(), DetailedHonestActivity.class);
-                        intent.putExtra("keyHonestStory",storyBean);
-                        getContext().startActivity(intent);
-                    }
-
-                }
-            }
-        });
         return view;
     }
 

@@ -73,7 +73,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         PendingIntent.FLAG_UPDATE_CURRENT);
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.loginlogo2)
                         .setContentTitle("Negruption")
                         .setContentText(message)
                         .setAutoCancel(true)
@@ -101,7 +101,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.loginlogo2)
                 .setContentTitle("Negruption")
                 .setContentText(message)
                 .setAutoCancel(true)

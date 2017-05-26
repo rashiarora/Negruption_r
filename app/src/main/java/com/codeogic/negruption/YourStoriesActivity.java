@@ -308,6 +308,17 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
 
        storyBean = stories.get(position);
         Toast.makeText(YourStoriesActivity.this,"You clicked"+storyBean.getUsername(),Toast.LENGTH_LONG).show();
+
+        if (storyBean.getCategory().equals("Corrupt")){
+            Intent intent = new Intent(YourStoriesActivity.this,StoryActivity.class);
+            intent.putExtra("keyStory",storyBean);
+            startActivity(intent);
+        }
+        else if (storyBean.getCategory().equals("Honest")) {
+            Intent intent = new Intent(YourStoriesActivity.this, DetailedHonestActivity.class);
+            intent.putExtra("keyHonestStory",storyBean);
+            startActivity(intent);
+        }
        /* count++;
         storyBean.setViews(count);*/
 
