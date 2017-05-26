@@ -80,7 +80,7 @@
             android:id="@+id/textViewViews_honest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="305dp"
+            android:layout_marginLeft="303dp"
             android:layout_marginTop="9dp"
             android:text="Vs" />
 
