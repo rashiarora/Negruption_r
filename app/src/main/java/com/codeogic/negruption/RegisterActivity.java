@@ -438,7 +438,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
         }
-        if(checkTerms == false){
+        if(!chkTerms.isChecked()){
             chkTerms.setError("Please Accept the terms and conditions");
         }
 
