@@ -26,7 +26,7 @@ public class SecretAudioService extends Service implements SensorEventListener {
     float last_x=0;
     float last_y=0;
     float last_z=0;
-    static int SHAKE_THRESHOLD = 1000;
+    static int SHAKE_THRESHOLD = 900;
     long lastUpdate=0;
     Boolean flag= false;
 
@@ -51,9 +51,12 @@ public class SecretAudioService extends Service implements SensorEventListener {
     @Override
     public void onDestroy() {
         sensorManager.unregisterListener(this);
+        recorder.release();
         Toast.makeText(getApplicationContext(), "Unregistered", Toast.LENGTH_LONG).show();
         super.onDestroy();
     }
+
+
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -61,14 +64,13 @@ public class SecretAudioService extends Service implements SensorEventListener {
             float[] values = event.values;
             long curTime = System.currentTimeMillis();
             // only allow one update every 100ms.
-            if ((curTime - lastUpdate) > 100) {
+            if ((curTime - lastUpdate) > 400) {
                 long diffTime = (curTime - lastUpdate);
                 lastUpdate = curTime;
 
                 float x = values[0];
                 float y = values[1];
                 float z = values[2];
-
                 float speed = Math.abs(x+y+z - last_x - last_y - last_z) / diffTime * 10000;
 
                 if (speed > SHAKE_THRESHOLD) {
@@ -87,9 +89,11 @@ public class SecretAudioService extends Service implements SensorEventListener {
         if (flag == false) {
             startRecording();
             flag = true;
+            Log.i("fStart",flag.toString());
         } else {
             stopRecording();
             flag = false;
+            Log.i("fStop",flag.toString());
         }
     }
 
@@ -127,14 +131,33 @@ public class SecretAudioService extends Service implements SensorEventListener {
     }
 
     void stopRecording(){
-        if (recorder!=null) {
-            recorder.stop();
+       /* if (recorder!=null) {
+//            recorder.stop();
             recorder.reset();
+            recorder.stop();
             recorder.release();
             recorder = null;
             Toast.makeText(getApplicationContext(), "Recording Stopped", Toast.LENGTH_LONG).show();
             Log.i("recordStop", "stop");
 
+        }*/
+
+        try {
+            //recorder.reset();
+            //recorder.prepare();
+            recorder.stop();
+//            recorder.release();
+//            recorder =null;
+            Toast.makeText(getApplicationContext(), "Recording Stopped", Toast.LENGTH_LONG).show();
+            Log.i("recordStop", "stop");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }finally {
+            //recorder.release();
+            recorder.reset();
+            recorder =null;
         }
 
     }

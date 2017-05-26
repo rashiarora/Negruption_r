@@ -1,8 +1,13 @@
 package com.codeogic.negruption;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -72,6 +77,8 @@ public class HonestStoryActivity extends AppCompatActivity implements View.OnCli
 
     int userId;
     ArrayAdapter<String> arrayAdapterHonestCities,arrayAdapterHonestDepartment;
+    ConnectivityManager connectivityManager;
+    NetworkInfo networkInfo;
 
 
     @Override
@@ -240,9 +247,29 @@ public class HonestStoryActivity extends AppCompatActivity implements View.OnCli
         if(v.getId()== R.id.buttonUpload_Honest){
 
             if (validInput()){
-            storyBean.setStoryTitle(txtHonestStoryTitle.getText().toString().trim());
-            storyBean.setStoryDesc(txtHonestStoryDesc.getText().toString().trim());
-            uploadHonestStory();
+                if(isNetworkConnected()){
+                    storyBean.setStoryTitle(txtHonestStoryTitle.getText().toString().trim());
+                    storyBean.setStoryDesc(txtHonestStoryDesc.getText().toString().trim());
+                    uploadHonestStory();
+                }else {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(this);
+                    builder.setTitle("No Network");
+                    builder.setMessage(" Please Turn On The Internet ");
+
+                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            HonestStoryActivity.this.startActivity(new Intent(Settings.ACTION_SETTINGS));
+
+                            Toast.makeText(HonestStoryActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
+
+
+                        }
+                    });
+                    builder.create().show();
+                }
+
 
         }
         }
@@ -260,6 +287,13 @@ public class HonestStoryActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+    public boolean isNetworkConnected(){
+
+        connectivityManager=(ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+        networkInfo=connectivityManager.getActiveNetworkInfo();
+
+        return (networkInfo != null && networkInfo.isConnected());
+    }
 
 
     void uploadHonestStory(){

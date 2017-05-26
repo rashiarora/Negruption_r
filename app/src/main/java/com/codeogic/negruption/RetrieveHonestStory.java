@@ -1,8 +1,13 @@
 package com.codeogic.negruption;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -39,6 +44,8 @@ public class RetrieveHonestStory extends AppCompatActivity implements AdapterVie
     RequestQueue requestQueue;
     SwipeRefreshLayout swipeRefreshLayout;
    // EditText eTxtSearch;
+   ConnectivityManager connectivityManager;
+    NetworkInfo networkInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +91,7 @@ public class RetrieveHonestStory extends AppCompatActivity implements AdapterVie
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        retrieveHonestStory();
 
     }
     @Override
@@ -251,6 +259,36 @@ public class RetrieveHonestStory extends AppCompatActivity implements AdapterVie
     public void onRefresh() {
         stories.clear();
         retrieveHonestStory();
+    }
+    public boolean isNetworkConnected(){
+
+        connectivityManager=(ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+        networkInfo=connectivityManager.getActiveNetworkInfo();
+
+        return (networkInfo != null && networkInfo.isConnected());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isNetworkConnected()){
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setTitle("No Network");
+            builder.setMessage(" Please Turn On The Internet ");
+
+            builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    RetrieveHonestStory.this.startActivity(new Intent(Settings.ACTION_SETTINGS));
+
+                    Toast.makeText(RetrieveHonestStory.this,"Clicked Okay",Toast.LENGTH_LONG).show();
+
+
+                }
+            });
+            builder.create().show();
+        }
     }
 
 }

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -44,9 +45,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     User user,rcvUser,uIntent;
      RequestQueue requestQueue;
-    boolean updateMode;
+    boolean updateMode,checkTerms;
 
     RadioGroup radioGroupGender;
+    CheckBox chkTerms;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
@@ -75,6 +77,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         female=(RadioButton)findViewById(R.id.rbFemale);
         register=(Button)findViewById(R.id.btnRegister1);
         radioGroupGender=(RadioGroup)findViewById(R.id.radioGroup);
+        chkTerms = (CheckBox)findViewById(R.id.checkBoxTerms);
         requestQueue= Volley.newRequestQueue(this);
         Intent rcv = getIntent();
         updateMode = rcv.hasExtra("keyUser");
@@ -94,6 +97,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 female.setChecked(true);
             }
 
+            chkTerms.setVisibility(View.GONE);
 
             register.setText("Update");
         }
@@ -193,17 +197,33 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         int id=buttonView.getId();
-        if (isChecked){
+        /*if (isChecked){
             if (id==R.id.rbMale){
                  user.setGender("male");
 
-            }
-            else
+            } else
             {
           user.setGender("female");
 
             }
+        } */
+        if(id == R.id.rbMale){
+            if(isChecked) {
+                user.setGender("male");
+            }
+        }else if(id == R.id.rbFemale){
+            if(isChecked){
+                user.setGender("female");
+            }
+
+        }else if(id == R.id.checkBoxTerms){
+            if(isChecked){
+                checkTerms= true;
+            }else{
+                checkTerms= false;
+            }
         }
+
     }
 
 
@@ -418,6 +438,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
         }
+        if(checkTerms == false){
+            chkTerms.setError("Please Accept the terms and conditions");
+        }
+
 
         return flag;
     }

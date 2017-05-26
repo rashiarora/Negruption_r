@@ -1,11 +1,16 @@
 package com.codeogic.negruption;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -85,6 +90,9 @@ public class AddStoryActivity extends AppCompatActivity implements View.OnClickL
 
     int userId;
 
+    ConnectivityManager connectivityManager;
+    NetworkInfo networkInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,8 +158,26 @@ public class AddStoryActivity extends AppCompatActivity implements View.OnClickL
                storyBean.setStoryDesc(txtStoryDesc.getText().toString().trim());
 
                progressDialog.show();
+               if(isNetworkConnected()){
+               uploadData();}
+               else{
+                   AlertDialog.Builder builder=new AlertDialog.Builder(this);
+                   builder.setTitle("No Network");
+                   builder.setMessage(" Please Turn On The Internet ");
 
-               uploadData();
+                   builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialog, int which) {
+
+                           AddStoryActivity.this.startActivity(new Intent(Settings.ACTION_SETTINGS));
+
+                           Toast.makeText(AddStoryActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
+
+
+                       }
+                   });
+                   builder.create().show();
+               }
            }
 
 
@@ -161,6 +187,14 @@ public class AddStoryActivity extends AppCompatActivity implements View.OnClickL
            startActivity(intent);
        }
 
+    }
+
+    public boolean isNetworkConnected(){
+
+        connectivityManager=(ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+        networkInfo=connectivityManager.getActiveNetworkInfo();
+
+        return (networkInfo != null && networkInfo.isConnected());
     }
 
 

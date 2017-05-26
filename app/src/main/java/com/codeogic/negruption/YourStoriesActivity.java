@@ -4,6 +4,9 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -54,6 +57,8 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
     int count=0, userId, pos;
     ArrayList<Integer> c;
 
+    ConnectivityManager connectivityManager;
+    NetworkInfo networkInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +111,7 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
               retrieveStory();
             }
         });
-
+       retrieveStory();
 
 
     }
@@ -313,5 +318,36 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
     @Override
     public void onRefresh() {
         retrieveStory();
+    }
+
+    public boolean isNetworkConnected(){
+
+        connectivityManager=(ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+        networkInfo=connectivityManager.getActiveNetworkInfo();
+
+        return (networkInfo != null && networkInfo.isConnected());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isNetworkConnected()){
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setTitle("No Network");
+            builder.setMessage(" Please Turn On The Internet ");
+
+            builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    YourStoriesActivity.this.startActivity(new Intent(Settings.ACTION_SETTINGS));
+
+                    Toast.makeText(YourStoriesActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
+
+
+                }
+            });
+            builder.create().show();
+        }
     }
 }
