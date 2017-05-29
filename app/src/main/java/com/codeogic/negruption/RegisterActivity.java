@@ -181,6 +181,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+
                     }
                 });
 
@@ -338,8 +339,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         username.setText("");
         password.setText("");
         password1.setText("");
+        male.setError(null);
+        female.setError(null);
         chkTerms.setChecked(false);
         chkTerms.setError(null);
+
 
     }
 
@@ -441,7 +445,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         }
 
-        if(!checkTerms){
+        if(!chkTerms.isChecked()){
+            flag = false;
             chkTerms.setError("Please Accept the terms and conditions");
         }
 

@@ -274,7 +274,25 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
                 }catch (Exception e){
                     e.printStackTrace();
                     //progressDialog.dismiss();
-                    Toast.makeText(YourStoriesActivity.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
+                    //Toast.makeText(YourStoriesActivity.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder builder=new AlertDialog.Builder(YourStoriesActivity.this);
+                    builder.setTitle("No Stories yet!");
+                    builder.setMessage(" You have not published any stories yet  ");
+
+                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            Intent i = new Intent(YourStoriesActivity.this,HomeActivity.class);
+                            YourStoriesActivity.this.startActivity(i);
+
+                            //Toast.makeText(YourStoriesActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
+
+
+                        }
+                    });
+                    builder.create().show();
+
                     swipeRefreshLayout.setRefreshing(false);
                 }
 
