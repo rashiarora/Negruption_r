@@ -3,6 +3,7 @@ package com.codeogic.negruption;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -18,6 +19,21 @@ public class SecretAudioActivity extends AppCompatActivity implements CompoundBu
         aSwitch.setTextOn("ON");
         aSwitch.setTextOff("OFF");
         aSwitch.setChecked(false);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

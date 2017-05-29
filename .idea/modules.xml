@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Negruption_r.iml" filepath="$PROJECT_DIR$/Negruption_r.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/negruption_edited-master.iml" filepath="$PROJECT_DIR$/negruption_edited-master.iml" />
     </modules>
   </component>
 </project>

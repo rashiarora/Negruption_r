@@ -12,6 +12,12 @@
         android:orientation="vertical"
         android:layout_height="match_parent">
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,12 +49,19 @@
             android:background="@color/colorPrimaryDark"
             />
 
-        <android.support.v7.widget.CardView
-            android:layout_marginTop="15dp"
-            android:layout_width="350dp"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content">
+        </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,39 +91,51 @@
                 android:text="StoryDesc"
                 android:id="@+id/textViewsStoryDesc"
                 android:layout_marginTop="90dp"
-                android:layout_marginLeft="20dp"
-                android:gravity="center"
                 android:textColor="@color/gray"
                 android:fontFamily="serif"
                 android:textSize="20dp"
+                android:padding="10dp"
+
 
                 />
+            </android.support.v7.widget.CardView>
 
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_width="300dp"
-                android:layout_height="250dp"
-                android:layout_marginTop="135dp"
+                android:layout_height="280dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/sImageView"
-
+                android:visibility="gone"
                 android:src="@drawable/imageupload"
                 android:layout_gravity="center_horizontal"
 
 
                 />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="90dp"
                 android:layout_height="85dp"
                 android:background="@drawable/audio"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="410dp"
+                android:layout_marginTop="30dp"
+                android:visibility="gone"
                 />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="500dp">
+                android:layout_marginTop="90dp">
 
                 <Button
                     android:layout_width="90dp"
@@ -121,6 +146,7 @@
                     android:background="@color/colorPrimary"
                     android:textColor="#ffffff"
                     android:textSize="15dp"
+                    android:visibility="gone"
                     android:layout_marginLeft="15dp"
                     />
 
@@ -131,6 +157,7 @@
                     android:onClick="clickPause"
                     android:text="Pause"
                     android:textSize="15dp"
+                    android:visibility="gone"
                     android:background="@color/colorPrimary"
                     android:textColor="#ffffff"
                     android:layout_marginLeft="25dp"
@@ -141,6 +168,7 @@
                     android:layout_width="90dp"
                     android:background="@color/colorPrimary"
                     android:textSize="15dp"
+                     android:visibility="gone"
                     android:textColor="#ffffff"
                     android:layout_height="wrap_content"
                     android:text="Stop"
@@ -151,9 +179,12 @@
             </LinearLayout>
 
 
-
-
         </android.support.v7.widget.CardView>
+
+
+
+
+
 
 
     </LinearLayout>

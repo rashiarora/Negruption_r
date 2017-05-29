@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -245,7 +246,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         })
         {
-            @Override
+           @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
                 map.put("username",user.getUsername());
@@ -253,6 +254,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.i("userName",user.getUsername() + user.getPassword());
                 return map;
             }
+
         };
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,

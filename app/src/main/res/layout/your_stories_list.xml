@@ -3,117 +3,123 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/registerback"
-
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <android.support.v7.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="204dp"
-
-        android:layout_marginBottom="2dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_width="360dp"
+        android:layout_height="215dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="6.5dp"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.036"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <TextView
-
             android:id="@+id/textViewyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif-smallcaps"
             android:text="Name"
+            android:textSize="19dp"
+            android:fontFamily="sans-serif-smallcaps"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="9dp"
             android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="67dp"
-            android:background="@color/lightgray"
-
-            />
 
         <TextView
             android:id="@+id/textViewyStoryTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="37dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="8dp"
+            android:textSize="18dp"
+            android:maxLines="2"
             android:fontFamily="sans-serif-smallcaps"
-            android:text="Story Title"
             android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:text="Story Title" />
 
         <TextView
             android:id="@+id/textViewyStoryDesc"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="91dp"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="85dp"
-            android:fontFamily="serif"
-
-            android:lineSpacingExtra="3dp"
+            android:lineSpacingExtra="2.5dp"
+            android:layout_width="337dp"
+            android:layout_height="wrap_content"
             android:maxLines="3"
-            android:text="Story Description"
+            android:fontFamily="serif"
+            android:textSize="18.5dp"
             android:textColor="@color/gray"
-            android:textSize="18dp"
-            tools:layout_editor_absoluteX="42dp"
-            tools:layout_editor_absoluteY="97dp" />
+            android:text="Story Description" />
 
         <TextView
             android:id="@+id/textViewyViews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="303dp"
-            android:layout_marginTop="9dp"
-            android:text="Vs" />
-
+            android:text="Vs"
+            android:layout_marginLeft="308dp"
+            android:layout_marginTop="7dp"
+            />
         <ImageView
-            android:id="@+id/imageViewEye"
+            android:id="@+id/imageViewyEye"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="320dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginLeft="325dp"
+            android:layout_marginTop="6dp"
             app:srcCompat="@drawable/view"
             tools:layout_editor_absoluteX="293dp"
             tools:layout_editor_absoluteY="28dp" />
+        <TextView
+            android:id="@+id/textViewApproval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Approval"
+            android:textColor="@color/blue"
+            android:textSize="17dp"
+            android:layout_marginTop="180dp"
+            app:layout_constraintTop_toBottomOf="@+id/textViewyStoryDesc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintHorizontal_bias="0.079"
+            app:layout_constraintVertical_bias="0.639"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
 
         <TextView
             android:id="@+id/textViewyReadMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="238dp"
-            android:layout_marginTop="170dp"
             android:text="...Read More"
-            android:textSize="17dp" />
+            android:textSize="17dp"
+            android:textColor="@color/blue"
+            android:layout_marginLeft="245dp"
+            android:layout_marginTop="180dp"
+            />
 
-        <TextView
-            android:id="@+id/textViewApproval"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="170dp"
-            android:text="Approval"
-            android:textSize="17dp" />
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="75dp"
+            android:background="@color/lightgray" />
+
 
 
     </android.support.v7.widget.CardView>
 
 
+
+
 </android.support.constraint.ConstraintLayout>
+
+
+

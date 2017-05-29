@@ -17,7 +17,7 @@
             android:title="Secret Audio" />
 
         <item
-            android:id="@+id/nav_questionnaire"
+            android:id="@+id/nav_helplines"
             android:icon="@drawable/questions"
             android:title="HelpLines" />
 
@@ -30,7 +30,7 @@
 
         <item
             android:id="@+id/nav_your_story"
-            android:icon="@drawable/graph"
+            android:icon="@drawable/your_stories"
             android:title="Your stories" />
 
         <item

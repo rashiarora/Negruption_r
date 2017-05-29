@@ -364,7 +364,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             flag=false;
             phone.setError(" Phone Number Cannot Be Empty ");
             phone.requestFocus();
-        }else if (user.getPhone().length()<10){
+        }else if (!(user.getPhone().length()==10)){
 
             flag=false;
             phone.setError(" Please Enter 10 digits Phone Number ");
@@ -399,6 +399,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             username.setError(" Username Cannot Be Empty ");
             username.requestFocus();
         }else if (user.getUsername().length()<5){
+
 
             flag=false;
             username.setError(" Username Should Be Minimum 5 characters long");
