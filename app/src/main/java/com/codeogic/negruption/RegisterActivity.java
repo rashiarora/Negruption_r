@@ -338,6 +338,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         username.setText("");
         password.setText("");
         password1.setText("");
+        chkTerms.setChecked(false);
+        chkTerms.setError(null);
 
     }
 
@@ -438,7 +440,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
         }
-        if(!chkTerms.isChecked()){
+
+        if(!checkTerms){
             chkTerms.setError("Please Accept the terms and conditions");
         }
 
