@@ -185,6 +185,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        Toast.makeText(LoginActivity.this,"Got It !!",Toast.LENGTH_LONG).show();
                     }
                 });
 
