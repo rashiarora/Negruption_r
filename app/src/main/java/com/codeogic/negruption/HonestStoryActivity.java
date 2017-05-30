@@ -262,7 +262,7 @@ public class HonestStoryActivity extends AppCompatActivity implements View.OnCli
 
                             HonestStoryActivity.this.startActivity(new Intent(Settings.ACTION_SETTINGS));
 
-                            Toast.makeText(HonestStoryActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
+                           // Toast.makeText(HonestStoryActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
 
 
                         }
@@ -311,14 +311,14 @@ public class HonestStoryActivity extends AppCompatActivity implements View.OnCli
 
                         progressDialog.dismiss();
 
-                        Toast.makeText(getApplication(), "Story Uploaded Success"  + message , Toast.LENGTH_SHORT).show();
+    //                    Toast.makeText(getApplication(), "Story Uploaded Success"  + message , Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(HonestStoryActivity.this,HomeActivity.class);
                         startActivity(intent);
 
                     }else {
                         progressDialog.dismiss();
 
-                        Toast.makeText(getApplication(), "Story Uploaded Failure"  + message , Toast.LENGTH_SHORT).show();
+  //                      Toast.makeText(getApplication(), "Story Uploaded Failure"  + message , Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
@@ -333,7 +333,7 @@ public class HonestStoryActivity extends AppCompatActivity implements View.OnCli
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
 
-                Toast.makeText(getApplication(), "Some Volley Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplication(), "Some Volley Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         })
         {

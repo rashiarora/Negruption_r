@@ -133,9 +133,9 @@
 
     <Button
         android:id="@+id/buttonNext3"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Next"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:text="Submit"
         android:textColor="#ffffff"
         android:textSize="17dp"
         android:background="@color/colorPrimary"

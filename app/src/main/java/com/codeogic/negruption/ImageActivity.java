@@ -193,11 +193,11 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                         intent.putExtra("keyStoryBean",rcvStory);
                         startActivity(intent);
 
-                        Toast.makeText(getApplication(), "Story Uploaded Success"  + message , Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(getApplication(), "Story Uploaded Success"  + message , Toast.LENGTH_SHORT).show();
                     }else {
                        // progressDialog.dismiss();
 
-                        Toast.makeText(getApplication(), "Story Uploaded Failure"  + message , Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(getApplication(), "Story Uploaded Failure"  + message , Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
@@ -212,7 +212,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
 
-                Toast.makeText(getApplication(), "Some Volley Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplication(), "Some Volley Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
 
 
             }

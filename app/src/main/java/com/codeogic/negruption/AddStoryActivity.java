@@ -171,7 +171,7 @@ public class AddStoryActivity extends AppCompatActivity implements View.OnClickL
 
                            AddStoryActivity.this.startActivity(new Intent(Settings.ACTION_SETTINGS));
 
-                           Toast.makeText(AddStoryActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
+                          // Toast.makeText(AddStoryActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
 
 
                        }
@@ -352,12 +352,12 @@ public class AddStoryActivity extends AppCompatActivity implements View.OnClickL
                         Intent intent = new Intent(AddStoryActivity.this,ImageActivity.class);
                         intent.putExtra("keyStoryBean",storyBean);
                         startActivity(intent);
-                        Toast.makeText(getApplication(), "Story Uploaded Success"  + message , Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplication(), "Story Uploaded Success"  + message , Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }else {
                         progressDialog.dismiss();
 
-                        Toast.makeText(getApplication(), "Story Uploaded Failure"  + message , Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplication(), "Story Uploaded Failure"  + message , Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
@@ -374,7 +374,7 @@ public class AddStoryActivity extends AppCompatActivity implements View.OnClickL
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
 
-                Toast.makeText(getApplication(), "Some Volley Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplication(), "Some Volley Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
 
 
             }

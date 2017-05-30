@@ -156,7 +156,7 @@ public class RetrieveHonestStory extends AppCompatActivity implements AdapterVie
                 }catch (Exception e){
                     e.printStackTrace();
                     //progressDialog.dismiss();
-                    Toast.makeText(RetrieveHonestStory.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
+                   // Toast.makeText(RetrieveHonestStory.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
                     swipeRefreshLayout.setRefreshing(false);
                 }
 
@@ -166,7 +166,7 @@ public class RetrieveHonestStory extends AppCompatActivity implements AdapterVie
             @Override
             public void onErrorResponse(VolleyError error) {
                 //progressDialog.dismiss();
-                Toast.makeText(RetrieveHonestStory.this,"Some Error"+error,Toast.LENGTH_LONG).show();
+              //  Toast.makeText(RetrieveHonestStory.this,"Some Error"+error,Toast.LENGTH_LONG).show();
                 swipeRefreshLayout.setRefreshing(false);
 
             }
@@ -189,7 +189,7 @@ public class RetrieveHonestStory extends AppCompatActivity implements AdapterVie
 
         Task t = new Task();
         t.execute();
-        Toast.makeText(RetrieveHonestStory.this,"You clicked"+story.getUsername(),Toast.LENGTH_LONG).show();
+     //   Toast.makeText(RetrieveHonestStory.this,"You clicked"+story.getUsername(),Toast.LENGTH_LONG).show();
 
     }
 
@@ -282,7 +282,7 @@ public class RetrieveHonestStory extends AppCompatActivity implements AdapterVie
 
                     RetrieveHonestStory.this.startActivity(new Intent(Settings.ACTION_SETTINGS));
 
-                    Toast.makeText(RetrieveHonestStory.this,"Clicked Okay",Toast.LENGTH_LONG).show();
+              //      Toast.makeText(RetrieveHonestStory.this,"Clicked Okay",Toast.LENGTH_LONG).show();
 
 
                 }

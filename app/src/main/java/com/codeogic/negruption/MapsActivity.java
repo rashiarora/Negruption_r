@@ -125,7 +125,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             public void onClick(DialogInterface dialog, int which) {
 
                                 requestPermission();
-                                Toast.makeText(MapsActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
+                             //   Toast.makeText(MapsActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
 
 
                             }
@@ -220,7 +220,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }catch (Exception e){
                     e.printStackTrace();
                     progressDialog.dismiss();
-                    Toast.makeText(MapsActivity.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(MapsActivity.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
                 }
 
 
@@ -230,7 +230,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onErrorResponse(VolleyError error) {
 
                 progressDialog.dismiss();
-                Toast.makeText(MapsActivity.this,"Some Error"+ error,Toast.LENGTH_LONG).show();
+              //  Toast.makeText(MapsActivity.this,"Some Error"+ error,Toast.LENGTH_LONG).show();
 
             }
         });
@@ -244,8 +244,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onInfoWindowClick(Marker marker) {
 
         String loc = marker.getTitle();
-        Toast.makeText(this, "Info window clicked: "+loc,
-                Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, "Info window clicked: "+loc,
+              //  Toast.LENGTH_LONG).show();
         Intent intent= new Intent(MapsActivity.this,LocationBasedStory.class);
        intent.putExtra("location",loc);
         startActivity(intent);

@@ -76,11 +76,10 @@
                 android:text="StoryDesc"
                 android:id="@+id/tVStoryDesc_honest"
                 android:layout_marginTop="100dp"
-                android:layout_marginLeft="20dp"
-                android:gravity="center"
                 android:textColor="@color/gray"
                 android:fontFamily="serif"
                 android:textSize="20dp"
+                android:padding="10dp"
 
                 />
 

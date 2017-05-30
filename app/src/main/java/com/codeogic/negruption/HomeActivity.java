@@ -239,7 +239,7 @@ public class HomeActivity extends AppCompatActivity
                     int  sid=0,views =0;
                     String username="",title="",description="",privacy="",dep = " ",pl = " ",u = "", img = " ", aud = " ", vid = " ", cat = " ";
 
-
+                    stories.clear();
                     for(int i=0;i<jsonArray.length();i++){
                         JSONObject jObj = jsonArray.getJSONObject(i);
 
@@ -278,7 +278,7 @@ public class HomeActivity extends AppCompatActivity
                 }catch (Exception e){
                     e.printStackTrace();
                     //progressDialog.dismiss();
-                    Toast.makeText(HomeActivity.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
+             //       Toast.makeText(HomeActivity.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
                     swipeRefreshLayout.setRefreshing(false);
                 }
 
@@ -290,7 +290,7 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onErrorResponse(VolleyError error) {
                 // progressDialog.dismiss();
-                Toast.makeText(HomeActivity.this,"Some Error"+error,Toast.LENGTH_LONG).show();
+             //   Toast.makeText(HomeActivity.this,"Some Error"+error,Toast.LENGTH_LONG).show();
                 swipeRefreshLayout.setRefreshing(false);
 
             }
@@ -313,7 +313,7 @@ public class HomeActivity extends AppCompatActivity
 
         Task t = new Task();
         t.execute();
-        Toast.makeText(HomeActivity.this,"You Clicked"+story.getUsername(),Toast.LENGTH_LONG).show();
+       // Toast.makeText(HomeActivity.this,"You Clicked"+story.getUsername(),Toast.LENGTH_LONG).show();
         Log.i("HomeActivity","homeActivity");
 
 
@@ -419,7 +419,7 @@ public class HomeActivity extends AppCompatActivity
 
                     HomeActivity.this.startActivity(new Intent(Settings.ACTION_SETTINGS));
 
-                    Toast.makeText(HomeActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(HomeActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
 
 
                 }

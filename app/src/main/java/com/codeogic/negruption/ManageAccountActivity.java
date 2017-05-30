@@ -156,18 +156,18 @@ public class ManageAccountActivity extends AppCompatActivity implements AdapterV
 
                         editor.clear();
                         editor.commit();
-                        Toast.makeText(ManageAccountActivity.this,message,Toast.LENGTH_LONG).show();
+                   //     Toast.makeText(ManageAccountActivity.this,message,Toast.LENGTH_LONG).show();
                         Intent i = new Intent(ManageAccountActivity.this,SplashActivity.class);
                         startActivity(i);
                         finish();
                     }else{
-                        Toast.makeText(ManageAccountActivity.this,message,Toast.LENGTH_LONG).show();
+                 //       Toast.makeText(ManageAccountActivity.this,message,Toast.LENGTH_LONG).show();
                     }
                     progressDialog.dismiss();
                 }catch (Exception e){
                     e.printStackTrace();
                     progressDialog.dismiss();
-                    Toast.makeText(ManageAccountActivity.this,"Some Exception"+e,Toast.LENGTH_LONG).show();
+               //     Toast.makeText(ManageAccountActivity.this,"Some Exception"+e,Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -175,7 +175,7 @@ public class ManageAccountActivity extends AppCompatActivity implements AdapterV
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-                Toast.makeText(ManageAccountActivity.this,"Some Volley Error: "+error.getMessage(),Toast.LENGTH_LONG).show();
+             //   Toast.makeText(ManageAccountActivity.this,"Some Volley Error: "+error.getMessage(),Toast.LENGTH_LONG).show();
             }
         })
         {
@@ -231,7 +231,7 @@ public class ManageAccountActivity extends AppCompatActivity implements AdapterV
                 }catch (Exception e){
                     e.printStackTrace();
                     progressDialog.dismiss();
-                    Toast.makeText(ManageAccountActivity.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
+               //     Toast.makeText(ManageAccountActivity.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
 
                 }
 
@@ -242,7 +242,7 @@ public class ManageAccountActivity extends AppCompatActivity implements AdapterV
             public void onErrorResponse(VolleyError error) {
 
                 progressDialog.dismiss();
-                Toast.makeText(ManageAccountActivity.this,"Some Error"+error,Toast.LENGTH_LONG).show();
+             //   Toast.makeText(ManageAccountActivity.this,"Some Error"+error,Toast.LENGTH_LONG).show();
 
             }
         }){

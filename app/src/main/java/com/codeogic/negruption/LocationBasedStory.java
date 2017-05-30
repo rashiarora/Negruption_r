@@ -52,7 +52,7 @@ public class LocationBasedStory extends AppCompatActivity implements AdapterView
         location = rcv.getStringExtra("location");
         //location = rcv.getParcelableExtra("location");
        // Log.i("loc",location);
-        Toast.makeText(this,location,Toast.LENGTH_LONG).show();
+      //  Toast.makeText(this,location,Toast.LENGTH_LONG).show();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -117,7 +117,7 @@ public class LocationBasedStory extends AppCompatActivity implements AdapterView
                 }catch (Exception e){
                     e.printStackTrace();
                     progressDialog.dismiss();
-                    Toast.makeText(LocationBasedStory.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
+               //     Toast.makeText(LocationBasedStory.this,"Some Exception"+ e,Toast.LENGTH_LONG).show();
                 }
 
 
@@ -127,7 +127,7 @@ public class LocationBasedStory extends AppCompatActivity implements AdapterView
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-                Toast.makeText(LocationBasedStory.this,"Some Error"+error,Toast.LENGTH_LONG).show();
+             //   Toast.makeText(LocationBasedStory.this,"Some Error"+error,Toast.LENGTH_LONG).show();
 
             }
         }){
@@ -159,10 +159,10 @@ public class LocationBasedStory extends AppCompatActivity implements AdapterView
 
         Task t = new Task();
         t.execute();
-        Toast.makeText(LocationBasedStory.this,"You Clicked"+story.getUsername(),Toast.LENGTH_LONG).show();
+       // Toast.makeText(LocationBasedStory.this,"You Clicked"+story.getUsername(),Toast.LENGTH_LONG).show();
         Log.i("HomeActivity","homeActivity");
 
-        Toast.makeText(LocationBasedStory.this,"You clicked"+story.getUsername(),Toast.LENGTH_LONG).show();
+      //  Toast.makeText(LocationBasedStory.this,"You clicked"+story.getUsername(),Toast.LENGTH_LONG).show();
 
     }
 

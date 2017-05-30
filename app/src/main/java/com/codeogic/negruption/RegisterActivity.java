@@ -173,7 +173,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                             RegisterActivity.this.startActivity(new Intent(Settings.ACTION_SETTINGS));
 
-                            Toast.makeText(RegisterActivity.this, "Clicked Okay", Toast.LENGTH_LONG).show();
+                          //  Toast.makeText(RegisterActivity.this, "Clicked Okay", Toast.LENGTH_LONG).show();
 
 
                         }
@@ -259,7 +259,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
                     if (success==1){
-                        Toast.makeText(RegisterActivity.this,message,Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(RegisterActivity.this,message,Toast.LENGTH_LONG).show();
 
                       if(!updateMode) {
                           editor.putInt(Util.PREFS_KEYUSERID, id);
@@ -280,14 +280,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                     }
                     else {
-                        Toast.makeText(RegisterActivity.this,message,Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(RegisterActivity.this,message,Toast.LENGTH_LONG).show();
 
                     }
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(RegisterActivity.this,"Oops! Exception happened : "+e,Toast.LENGTH_LONG).show();
+                   // Toast.makeText(RegisterActivity.this,"Oops! Exception happened : "+e,Toast.LENGTH_LONG).show();
                 }
 
 

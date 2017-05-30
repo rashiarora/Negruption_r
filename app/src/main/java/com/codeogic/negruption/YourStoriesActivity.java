@@ -94,7 +94,7 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
 
                 pos = position;
                 storyBean = stories.get(position);
-                Toast.makeText(YourStoriesActivity.this,"You Long clicked"+storyBean.getUsername(),Toast.LENGTH_LONG).show();
+             //   Toast.makeText(YourStoriesActivity.this,"You Long clicked"+storyBean.getUsername(),Toast.LENGTH_LONG).show();
                 showOptions();
 
 
@@ -182,15 +182,15 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
                     if (success==1){
                         stories.remove(pos);
                         adapter.notifyDataSetChanged();
-                        Toast.makeText(YourStoriesActivity.this,message,Toast.LENGTH_LONG).show();
+                        //Toast.makeText(YourStoriesActivity.this,message,Toast.LENGTH_LONG).show();
                         progressDialog.dismiss();
                     }else {
-                        Toast.makeText(YourStoriesActivity.this,message,Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(YourStoriesActivity.this,message,Toast.LENGTH_LONG).show();
                         progressDialog.dismiss();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(YourStoriesActivity.this,"Some Exception: " + e.getMessage(),Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(YourStoriesActivity.this,"Some Exception: " + e.getMessage(),Toast.LENGTH_LONG).show();
                     progressDialog.dismiss();
                 }
 
@@ -198,7 +198,7 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(YourStoriesActivity.this,"Some Volley Error: " + error.getMessage(),Toast.LENGTH_LONG).show();
+              //  Toast.makeText(YourStoriesActivity.this,"Some Volley Error: " + error.getMessage(),Toast.LENGTH_LONG).show();
                 progressDialog.dismiss();
 
             }
@@ -304,7 +304,7 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
             @Override
             public void onErrorResponse(VolleyError error) {
                // progressDialog.dismiss();
-                Toast.makeText(YourStoriesActivity.this,"Some Error"+error,Toast.LENGTH_LONG).show();
+           //     Toast.makeText(YourStoriesActivity.this,"Some Error"+error,Toast.LENGTH_LONG).show();
                 swipeRefreshLayout.setRefreshing(false);
 
             }
@@ -325,7 +325,7 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
        storyBean = stories.get(position);
-        Toast.makeText(YourStoriesActivity.this,"You clicked"+storyBean.getUsername(),Toast.LENGTH_LONG).show();
+      //  Toast.makeText(YourStoriesActivity.this,"You clicked"+storyBean.getUsername(),Toast.LENGTH_LONG).show();
 
         if (storyBean.getCategory().equals("Corrupt")){
             Intent intent = new Intent(YourStoriesActivity.this,StoryActivity.class);
@@ -371,7 +371,7 @@ public class YourStoriesActivity extends AppCompatActivity implements AdapterVie
 
                     YourStoriesActivity.this.startActivity(new Intent(Settings.ACTION_SETTINGS));
 
-                    Toast.makeText(YourStoriesActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(YourStoriesActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
 
 
                 }
