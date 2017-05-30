@@ -2,6 +2,7 @@ package com.codeogic.negruption;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,7 +32,7 @@ public class LocationBasedStory extends AppCompatActivity implements AdapterView
     ListView listStories;
     ArrayList<StoryBean> stories;
     StoryAdapter adapter;
-    StoryBean storyBean;
+    StoryBean story;
     RequestQueue requestQueue;
     ProgressDialog progressDialog;
     String location;
@@ -148,8 +149,83 @@ public class LocationBasedStory extends AppCompatActivity implements AdapterView
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        storyBean = stories.get(position);
-        Toast.makeText(LocationBasedStory.this,"You clicked"+storyBean.getUsername(),Toast.LENGTH_LONG).show();
+       // storyBean = stories.get(position);
+        story = stories.get(position);
+
+        story.setViews(story.getViews()+1);
+        Intent intent = new Intent(LocationBasedStory.this,StoryActivity.class);
+        intent.putExtra("keyStory",story);
+        startActivity(intent);
+
+        Task t = new Task();
+        t.execute();
+        Toast.makeText(LocationBasedStory.this,"You Clicked"+story.getUsername(),Toast.LENGTH_LONG).show();
+        Log.i("HomeActivity","homeActivity");
+
+        Toast.makeText(LocationBasedStory.this,"You clicked"+story.getUsername(),Toast.LENGTH_LONG).show();
 
     }
+
+    class  Task extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            StringRequest request = new StringRequest(Request.Method.POST, Util.UPDATE_VIEWS, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try{
+                        JSONObject jsonObject = new JSONObject(response);
+                        int success = jsonObject.getInt("success");
+                        String message = jsonObject.getString("message");
+
+                        if(success == 1){
+
+                            Log.i("success",message);
+                        }else{
+                            // Toast.makeText(ManageAccountActivity.this,message,Toast.LENGTH_LONG).show();
+                        }
+                        // progressDialog.dismiss();
+                    }catch (Exception e){
+                        e.printStackTrace();
+
+                        Log.i("exception",e.getMessage());
+                        //progressDialog.dismiss();
+                        //Toast.makeText(ManageAccountActivity.this,"Some Exception"+e,Toast.LENGTH_LONG).show();
+                    }
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.i("error",error.getMessage());
+
+                }
+            })
+            {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String,String> map = new HashMap<>();
+                    map.put("views",String.valueOf(story.getViews()));
+                    map.put("sid",String.valueOf(story.getStoryId()));
+
+                    return map;
+                }
+            };
+            requestQueue.add(request);request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            requestQueue.add(request);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            //adapter.notifyDataSetChanged();
+        }
+    }
+
 }
