@@ -55,6 +55,7 @@ public class Util {
     public static final String PREFS_KEYPASSWORD="keyPassword";
     public static final String PREFS_KEYIMAGE="keyImages";
     public static final String PREFS_KEYAUDIO="keyAudios";
+    public static final String TOKEN="";
 
 
 

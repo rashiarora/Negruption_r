@@ -37,15 +37,15 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener,CompoundButton.OnCheckedChangeListener{
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener,CompoundButton.OnCheckedChangeListener {
 
-    EditText name,phone,email,username,password,password1;
+    EditText name, phone, email, username, password, password1;
     Button register;
-    RadioButton male,female;
+    RadioButton male, female;
 
-    User user,rcvUser,uIntent;
-     RequestQueue requestQueue;
-    boolean updateMode,checkTerms;
+    User user, rcvUser, uIntent;
+    RequestQueue requestQueue;
+    boolean updateMode, checkTerms;
 
     RadioGroup radioGroupGender;
     CheckBox chkTerms;
@@ -56,33 +56,33 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     NetworkInfo networkInfo;
 
 
-    public boolean isNetworkConnected(){
+    public boolean isNetworkConnected() {
 
-        connectivityManager=(ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
-        networkInfo=connectivityManager.getActiveNetworkInfo();
+        connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        networkInfo = connectivityManager.getActiveNetworkInfo();
 
         return (networkInfo != null && networkInfo.isConnected());
     }
 
 
-    public void init(){
+    public void init() {
 
-        name=(EditText)findViewById(R.id.registerName);
-        phone=(EditText)findViewById(R.id.registerPhone);
-        email=(EditText)findViewById(R.id.registerEmail);
-        username=(EditText)findViewById(R.id.registerUsername);
-        password=(EditText)findViewById(R.id.registerPassword);
-         password1=(EditText)findViewById(R.id.registerPassword1);
-        male=(RadioButton)findViewById(R.id.rbMale);
-        female=(RadioButton)findViewById(R.id.rbFemale);
-        register=(Button)findViewById(R.id.btnRegister1);
-        radioGroupGender=(RadioGroup)findViewById(R.id.radioGroup);
-        chkTerms = (CheckBox)findViewById(R.id.checkBoxTerms);
-        requestQueue= Volley.newRequestQueue(this);
+        name = (EditText) findViewById(R.id.registerName);
+        phone = (EditText) findViewById(R.id.registerPhone);
+        email = (EditText) findViewById(R.id.registerEmail);
+        username = (EditText) findViewById(R.id.registerUsername);
+        password = (EditText) findViewById(R.id.registerPassword);
+        password1 = (EditText) findViewById(R.id.registerPassword1);
+        male = (RadioButton) findViewById(R.id.rbMale);
+        female = (RadioButton) findViewById(R.id.rbFemale);
+        register = (Button) findViewById(R.id.btnRegister1);
+        radioGroupGender = (RadioGroup) findViewById(R.id.radioGroup);
+        chkTerms = (CheckBox) findViewById(R.id.checkBoxTerms);
+        requestQueue = Volley.newRequestQueue(this);
         Intent rcv = getIntent();
         updateMode = rcv.hasExtra("keyUser");
-        if(updateMode){
-            rcvUser = (User)rcv.getSerializableExtra("keyUser");
+        if (updateMode) {
+            rcvUser = (User) rcv.getSerializableExtra("keyUser");
             name.setText(rcvUser.getName());
             phone.setText(rcvUser.getPhone());
             email.setText(rcvUser.getEmail());
@@ -91,10 +91,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             password1.setText(rcvUser.getPassword());
 
 
-            if(rcvUser.getGender().equals("Male")){
+            if (rcvUser.getGender().equals("male")) {
                 male.setChecked(true);
-            }else{
+                //user.setGender(rcvUser.getGender());
+            } else {
                 female.setChecked(true);
+
             }
 
             chkTerms.setVisibility(View.GONE);
@@ -103,6 +105,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
 
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,20 +117,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        user=new User();
-        sharedPreferences=getSharedPreferences(Util.PREFS_NAME,MODE_PRIVATE);
-        editor=sharedPreferences.edit();
-
+        user = new User();
+        sharedPreferences = getSharedPreferences(Util.PREFS_NAME, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
 
-        if(id == android.R.id.home){
-            Intent i =new Intent(RegisterActivity.this,LoginActivity.class);
+        if (id == android.R.id.home) {
+            Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(i);
             finish();
         }
@@ -137,21 +140,30 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        int id=v.getId();
-        if (id==R.id.btnRegister1){
+        int id = v.getId();
+        if (id == R.id.btnRegister1) {
 
             user.setName(name.getText().toString().trim());
             user.setPhone(phone.getText().toString().trim());
             user.setEmail(email.getText().toString().trim());
             user.setUsername(username.getText().toString().trim());
             user.setPassword(password.getText().toString().trim());
+            if(updateMode){
+                user.setGender(rcvUser.getGender());
+            }
 
-            if (validateFields()){
-                if (isNetworkConnected()){
+            if (validateFields()) {
+                if (isNetworkConnected()) {
+                   /* if(!updateMode){
+                        if (!chkTerms.isChecked()) {
+                            //flag = false;
+                            chkTerms.setError("Please Accept the terms and conditions");
+                        }
+                    }*/
+
                     insertIntoCloud();
-                }
-                else {
-                    AlertDialog.Builder builder=new AlertDialog.Builder(this);
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("No Network");
                     builder.setMessage(" Please Turn On The Internet ");
 
@@ -161,7 +173,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                             RegisterActivity.this.startActivity(new Intent(Settings.ACTION_SETTINGS));
 
-                            Toast.makeText(RegisterActivity.this,"Clicked Okay",Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, "Clicked Okay", Toast.LENGTH_LONG).show();
 
 
                         }
@@ -170,10 +182,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                     builder.create().show();
 
-                }}
-            else {
+                }
+            } else {
 
-                AlertDialog.Builder builder=new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Invalid Inputs");
                 builder.setMessage(" Please Enter Correct Details for Registration ");
 
@@ -197,35 +209,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        int id=buttonView.getId();
-        /*if (isChecked){
-            if (id==R.id.rbMale){
-                 user.setGender("male");
-
-            } else
-            {
-          user.setGender("female");
-
-            }
-        } */
-        if(id == R.id.rbMale){
-            if(isChecked) {
+        int id = buttonView.getId();
+        if (isChecked) {
+            if (id == R.id.rbMale) {
                 user.setGender("male");
+
             }
-        }else if(id == R.id.rbFemale){
-            if(isChecked){
+           else  {
                 user.setGender("female");
+
+            }
+            if (id == R.id.checkBoxTerms) {
+
+                checkTerms = true;
             }
 
-        }else if(id == R.id.checkBoxTerms){
-            if(isChecked){
-                checkTerms= true;
-            }else{
-                checkTerms= false;
-            }
         }
-
     }
+
+
 
 
     public void insertIntoCloud() {
@@ -305,6 +307,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> map=new HashMap<>();
+                Log.i("rcvU",rcvUser.toString());
                 if(updateMode)
                     map.put("id",String.valueOf(rcvUser.getId()));
 
@@ -315,6 +318,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 map.put("username1",user.getUsername());
                 map.put("password1",user.getPassword());
                 map.put("token",token);
+                Log.i("U",user.toString());
+                Log.i("token",token);
+
 
                 return map;
 
@@ -445,13 +451,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
         }
+       if(!updateMode) {
 
-        if(!chkTerms.isChecked()){
-            flag = false;
-            chkTerms.setError("Please Accept the terms and conditions");
+            if (!chkTerms.isChecked()) {
+                flag = false;
+                chkTerms.setError("Please Accept the terms and conditions");
+            }
+
         }
-
-
         return flag;
     }
 
