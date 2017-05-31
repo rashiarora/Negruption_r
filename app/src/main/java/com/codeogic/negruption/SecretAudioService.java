@@ -26,7 +26,7 @@ public class SecretAudioService extends Service implements SensorEventListener {
     float last_x=0;
     float last_y=0;
     float last_z=0;
-    static int SHAKE_THRESHOLD = 900;
+    static int SHAKE_THRESHOLD = 500;
     long lastUpdate=0;
     Boolean flag= false;
 
@@ -51,7 +51,7 @@ public class SecretAudioService extends Service implements SensorEventListener {
     @Override
     public void onDestroy() {
         sensorManager.unregisterListener(this);
-        recorder.release();
+//        recorder.release();
         Toast.makeText(getApplicationContext(), "Unregistered", Toast.LENGTH_LONG).show();
         super.onDestroy();
     }
@@ -63,8 +63,10 @@ public class SecretAudioService extends Service implements SensorEventListener {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             float[] values = event.values;
             long curTime = System.currentTimeMillis();
+            Log.i("cur",curTime+"");
+            Log.i("last",lastUpdate+"");
             // only allow one update every 100ms.
-            if ((curTime - lastUpdate) > 400) {
+            if ((curTime - lastUpdate) > 500) {
                 long diffTime = (curTime - lastUpdate);
                 lastUpdate = curTime;
 
@@ -155,8 +157,8 @@ public class SecretAudioService extends Service implements SensorEventListener {
         {
             e.printStackTrace();
         }finally {
-            //recorder.release();
-            recorder.reset();
+            recorder.release();
+            //recorder.reset();
             recorder =null;
         }
 
